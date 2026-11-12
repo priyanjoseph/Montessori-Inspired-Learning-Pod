@@ -554,7 +554,7 @@ export async function handleApiRequest(req, res, db) {
         .prepare("SELECT value FROM system_settings WHERE key = 'allow_parent_registration'")
         .get();
       if (settingRow && settingRow.value === 'false') {
-        return sendJson(res, 403, { error: 'New parent registrations are currently paused by admissions.' });
+        return sendJson(res, 403, { error: 'New account registrations are currently paused by admissions.' });
       }
 
       const body = await readJsonBody(req);
@@ -563,6 +563,7 @@ export async function handleApiRequest(req, res, db) {
       const phone = String(body.phone || '').trim();
       const password = String(body.password || '');
       const confirmPassword = body.confirmPassword !== undefined ? String(body.confirmPassword) : password;
+      const requestedRole = String(body.requestedRole || 'parent').trim().toLowerCase();
       const childName = String(body.childName || '').trim();
       const childAge = String(body.childAge || '').trim();
       const preferredProgram = String(body.preferredProgram || '').trim();
@@ -585,15 +586,6 @@ export async function handleApiRequest(req, res, db) {
       if (password !== confirmPassword) {
         return sendJson(res, 400, { error: 'Passwords do not match.' });
       }
-      if (!childName || childName.length < 2) {
-        return sendJson(res, 400, { error: "Please enter your child's full name." });
-      }
-      if (!childAge) {
-        return sendJson(res, 400, { error: "Please specify your child's age." });
-      }
-      if (!preferredProgram) {
-        return sendJson(res, 400, { error: 'Please select a preferred Montessori program.' });
-      }
       if (!agreeToTerms) {
         return sendJson(res, 400, { error: 'Please accept the Terms of Service & Family Privacy Policy.' });
       }
@@ -601,6 +593,34 @@ export async function handleApiRequest(req, res, db) {
       const existing = db.prepare('SELECT id FROM users WHERE lower(email) = ?').get(email);
       if (existing) {
         return sendJson(res, 409, { error: 'An account with this email address is already registered.' });
+      }
+
+      // SECURITY: Educator/Teacher portal accounts require Administrator approval; never self-grant 'admin'
+      if (requestedRole === 'teacher') {
+        const adminRow = db.prepare("SELECT id FROM users WHERE role = 'admin' LIMIT 1").get();
+        const now = new Date().toISOString();
+        const notifId = `notif-${crypto.randomUUID().slice(0, 8)}`;
+        const today = now.slice(0, 10);
+
+        if (adminRow) {
+          db.prepare(`
+            INSERT INTO notifications (id, user_id, target_role, title, message, type, date, timestamp, is_read, action_url)
+            VALUES (?, ?, 'admin', ?, ?, 'announcement', ?, 'Just now', 0, '/admin/staff')
+          `).run(
+            notifId,
+            adminRow.id,
+            'Educator Account Request',
+            `${name} (${email}) requested a Teacher / Guide account verification via the Create Account portal.`,
+            today
+          );
+        }
+
+        return sendJson(res, 202, {
+          pendingApproval: true,
+          requestedRole: 'teacher',
+          message:
+            'Your Teacher account request has been recorded for administrator review. Per existing role permissions, educator accounts must be verified by a Campus Administrator before portal access is activated.',
+        });
       }
 
       const userId = `user-${crypto.randomUUID().slice(0, 10)}`;
@@ -626,9 +646,9 @@ export async function handleApiRequest(req, res, db) {
         createStarterChildForParent(db, {
           userId,
           parentName: name,
-          childName,
-          childAge,
-          program: preferredProgram,
+          childName: childName || `${name.split(' ')[0]}'s Child`,
+          childAge: childAge || '3.5 Years',
+          program: preferredProgram || 'Primary Program (Casa dei Bambini, 3 – 6 yrs)',
         });
         db.exec('COMMIT');
       } catch (err) {

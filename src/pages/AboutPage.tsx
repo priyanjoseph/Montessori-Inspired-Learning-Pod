@@ -27,11 +27,11 @@ export const AboutPage: React.FC = () => {
         <section className="mb-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6 relative">
-              <div className="rounded-3xl overflow-hidden shadow-soft-xl border-4 border-white dark:border-forest-800">
+              <div className="rounded-3xl overflow-hidden shadow-soft-xl border-4 border-white dark:border-forest-800 bg-beige-100 dark:bg-forest-800">
                 <img
                   src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=1200"
                   alt="Montessori learning pod founding and classroom space"
-                  className="w-full h-[400px] sm:h-[480px] object-cover"
+                  className="w-full h-[400px] sm:h-[480px] object-contain object-center"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 rtl:-right-auto rtl:-left-6 hidden sm:block p-4 rounded-2xl bg-white/95 dark:bg-forest-900/95 backdrop-blur-md shadow-soft-lg border border-beige-200 dark:border-forest-700 max-w-[220px]">
@@ -156,9 +156,9 @@ export const AboutPage: React.FC = () => {
                   <img
                     src={guide.image}
                     alt={guide.name}
-                    className="w-full h-full object-cover object-[50%_25%] group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain object-center group-hover:scale-[1.03] transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-forest-950/75 via-forest-950/15 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-forest-950/15 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4 text-white text-left rtl:text-right">
                     <p className="text-xs font-bold text-sage-200">{guide.experience}</p>
                     <h3 className="font-serif text-lg font-bold leading-snug">{guide.name}</h3>

@@ -103,7 +103,7 @@ export const DashboardLayout: React.FC = () => {
               <img
                 src={childProfile.photo}
                 alt={childProfile.name}
-                className="w-10 h-10 rounded-full object-cover border-2 border-forest-500 shadow-sm"
+                className="w-10 h-10 rounded-full object-cover object-top bg-beige-100 border-2 border-forest-500 shadow-sm"
               />
               <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-forest-500 border border-white" title="Active in Work Cycle" />
             </div>
@@ -207,7 +207,7 @@ export const DashboardLayout: React.FC = () => {
                 <img
                   src={childProfile.photo}
                   alt={childProfile.name}
-                  className="w-9 h-9 rounded-full object-cover border border-forest-500"
+                  className="w-9 h-9 rounded-full object-cover object-top bg-beige-100 border border-forest-500"
                 />
                 <div className="text-left rtl:text-right">
                   <p className="font-bold text-xs text-forest-900">{childProfile.name}</p>
@@ -330,7 +330,7 @@ export const DashboardLayout: React.FC = () => {
                 <img
                   src={user?.avatar || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=256'}
                   alt={user?.name || 'Parent'}
-                  className="w-7 h-7 rounded-full object-cover border border-forest-500"
+                  className="w-7 h-7 rounded-full object-cover object-top bg-beige-100 border border-forest-500"
                 />
                 <span className="hidden sm:inline max-w-[110px] truncate">{user?.name || 'Sarah Jenkins'}</span>
                 <ChevronDown className="w-3.5 h-3.5 text-forest-600" />

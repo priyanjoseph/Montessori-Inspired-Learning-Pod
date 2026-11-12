@@ -186,13 +186,13 @@ export const DailyLogsPage: React.FC = () => {
               className="rounded-3xl bg-white border border-beige-300 shadow-soft hover:shadow-soft-lg transition-all duration-300 overflow-hidden flex flex-col justify-between group"
             >
               {/* Log Image with Overlays */}
-              <div className="relative h-48 overflow-hidden bg-beige-100">
+              <div className="relative h-48 overflow-hidden bg-beige-100 dark:bg-forest-800">
                 <img
                   src={log.photoUrl}
                   alt={log.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-contain object-center group-hover:scale-[1.03] transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-forest-950/60 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-forest-950/65 via-transparent to-transparent pointer-events-none" />
 
                 {/* Category badge */}
                 <div className="absolute top-3 left-3 rtl:left-auto rtl:right-3">
@@ -248,7 +248,7 @@ export const DailyLogsPage: React.FC = () => {
                     <img
                       src={log.guideAvatar}
                       alt={log.guideName}
-                      className="w-6 h-6 rounded-full object-cover border border-forest-400"
+                      className="w-6 h-6 rounded-full object-cover object-top bg-beige-100 border border-forest-400"
                     />
                     <span className="text-[11px] text-forest-700 font-semibold truncate max-w-[110px]">
                       {log.guideName}
@@ -303,11 +303,11 @@ export const DailyLogsPage: React.FC = () => {
             </h2>
 
             {/* Large Activity Image */}
-            <div className="rounded-3xl overflow-hidden h-64 sm:h-72 bg-beige-100 shadow-sm mb-6">
+            <div className="rounded-3xl overflow-hidden h-64 sm:h-72 bg-beige-100 dark:bg-forest-800 shadow-sm mb-6">
               <img
                 src={activeLogModal.photoUrl}
                 alt={activeLogModal.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain object-center"
               />
             </div>
 
@@ -326,7 +326,7 @@ export const DailyLogsPage: React.FC = () => {
                   <img
                     src={activeLogModal.guideAvatar}
                     alt={activeLogModal.guideName}
-                    className="w-6 h-6 rounded-full object-cover"
+                    className="w-6 h-6 rounded-full object-cover object-top bg-beige-100"
                   />
                   <span className="text-xs font-bold text-forest-900">
                     Guide Observation ({activeLogModal.guideName})

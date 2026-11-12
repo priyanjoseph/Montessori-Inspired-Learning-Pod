@@ -21,7 +21,7 @@ export const curriculumAreas: CurriculumArea[] = [
     title: 'Practical Life',
     subtitle: 'Nurturing self-reliance, concentration, coordination, and community care',
     iconName: 'Sparkles',
-    image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200',
     colorTheme: 'sage',
     explanation: 'Practical Life activities form the foundational cornerstone of all Montessori learning. Through purposeful, everyday physical actions—such as pouring liquids, polishing brass, preparing fruits, and dressing—children master fine motor dexterity, internalize physical sequence, and develop a calm, sustained power of concentration.',
     quote: 'The child can only develop fully through means of experience on his environment. We call such experience "work". — Dr. Maria Montessori',

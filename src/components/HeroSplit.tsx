@@ -17,9 +17,9 @@ export const HeroSplit: React.FC = () => {
     <section className="relative w-full min-h-[calc(100vh-64px)] lg:min-h-[640px] xl:min-h-[720px] flex items-center overflow-hidden bg-cream dark:bg-forest-950">
       {/* Full-width photographic background (preserving existing Home Page 2 image) */}
       <img
-        src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=85&w=1920"
-        alt="Child working with Montessori practical life apparatus"
-        className="absolute inset-0 w-full h-full object-cover object-top md:object-[78%_20%] rtl:md:object-[22%_20%] select-none"
+        src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=85&w=1920"
+        alt="Prepared Montessori classroom table and natural learning materials"
+        className="absolute inset-0 w-full h-full object-cover object-center md:object-[75%_center] rtl:md:object-[25%_center] select-none"
       />
 
       {/* Soft directional cream/dark gradient overlay for left-side readability */}

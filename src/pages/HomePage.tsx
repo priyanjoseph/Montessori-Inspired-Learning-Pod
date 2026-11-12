@@ -180,13 +180,13 @@ export const HomePage: React.FC = () => {
                 </div>
 
                 <div className="lg:col-span-6">
-                  <div className="relative rounded-3xl overflow-hidden shadow-soft-xl border-4 border-white dark:border-forest-800">
+                  <div className="relative rounded-3xl overflow-hidden shadow-soft-xl border-4 border-white dark:border-forest-800 bg-beige-100 dark:bg-forest-800">
                     <img
                       src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=1000"
                       alt="Child discovering wooden sensorial materials"
-                      className="w-full h-[420px] object-cover"
+                      className="w-full h-[420px] object-contain object-center"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-transparent to-transparent flex items-end p-6">
+                    <div className="absolute inset-0 bg-gradient-to-t from-forest-950/75 via-transparent to-transparent flex items-end p-6">
                       <div className="text-white">
                         <p className="text-xs font-medium text-sage-200">Sensorial Refinement</p>
                         <p className="font-serif text-lg font-bold">&quot;What the hand does, the mind remembers.&quot;</p>

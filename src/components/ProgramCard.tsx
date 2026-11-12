@@ -23,9 +23,9 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program, onSelectMore,
         <img
           src={program.image}
           alt={program.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-contain object-center group-hover:scale-[1.03] transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-forest-950/60 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-transparent to-transparent pointer-events-none" />
 
         {/* Age badge */}
         <div className="absolute top-4 left-4 rtl:left-auto rtl:right-4">

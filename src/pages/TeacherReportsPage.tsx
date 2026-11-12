@@ -69,7 +69,7 @@ export const TeacherReportsPage: React.FC = () => {
                 <img
                   src={report.teacherAvatar}
                   alt={report.teacherName}
-                  className="w-14 h-14 rounded-2xl object-cover border-2 border-forest-400 shadow-sm flex-shrink-0"
+                  className="w-14 h-14 rounded-2xl object-contain object-center bg-beige-100 dark:bg-forest-800 border-2 border-forest-400 shadow-sm flex-shrink-0"
                 />
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1">

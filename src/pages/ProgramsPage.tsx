@@ -72,7 +72,7 @@ export const ProgramsPage: React.FC = () => {
                       <img
                         src={prog.image}
                         alt={prog.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain object-center"
                       />
                     </div>
 

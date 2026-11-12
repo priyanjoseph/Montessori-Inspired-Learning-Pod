@@ -61,9 +61,9 @@ export const EnvironmentGallery: React.FC = () => {
                 <img
                   src={item.imageUrl}
                   alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-contain object-center group-hover:scale-[1.03] transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-forest-950/20 group-hover:bg-forest-950/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 duration-300">
+                <div className="absolute inset-0 bg-transparent group-hover:bg-forest-950/35 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 duration-300">
                   <div className="p-3 rounded-full bg-white/90 text-forest-900 shadow-soft">
                     <ZoomIn className="w-5 h-5" />
                   </div>
@@ -109,7 +109,7 @@ export const EnvironmentGallery: React.FC = () => {
             <img
               src={selectedPhoto.imageUrl}
               alt={selectedPhoto.title}
-              className="w-full max-h-[65vh] object-cover"
+              className="w-full max-h-[65vh] object-contain object-center bg-beige-100 dark:bg-forest-950"
             />
             <div className="p-6">
               <span className="text-xs font-bold text-terracotta dark:text-terracotta-300">{selectedPhoto.tag}</span>

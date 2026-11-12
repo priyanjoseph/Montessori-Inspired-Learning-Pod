@@ -184,7 +184,7 @@ export const SettingsPage: React.FC = () => {
               <img
                 src={avatar}
                 alt="Selected avatar"
-                className="w-16 h-16 rounded-2xl object-cover border-2 border-forest-600 shadow-sm"
+                className="w-16 h-16 rounded-2xl object-contain object-center bg-beige-100 dark:bg-forest-800 border-2 border-forest-600 shadow-sm"
               />
               <div className="space-y-1">
                 <span className="text-xs text-forest-600 block">Choose from curated parent avatars:</span>
@@ -194,11 +194,11 @@ export const SettingsPage: React.FC = () => {
                       key={i}
                       type="button"
                       onClick={() => setAvatar(opt)}
-                      className={`w-9 h-9 rounded-xl overflow-hidden border-2 transition-transform ${
+                      className={`w-9 h-9 rounded-xl overflow-hidden border-2 bg-beige-100 dark:bg-forest-800 transition-transform ${
                         avatar === opt ? 'border-forest-600 scale-110 shadow-sm' : 'border-beige-200 opacity-70 hover:opacity-100'
                       }`}
                     >
-                      <img src={opt} alt="Avatar option" className="w-full h-full object-cover" />
+                      <img src={opt} alt="Avatar option" className="w-full h-full object-contain object-center" />
                     </button>
                   ))}
                 </div>

@@ -11,7 +11,6 @@ import { CurriculumPage } from './pages/CurriculumPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { LoginPage } from './pages/LoginPage';
-import { RegisterPage } from './pages/RegisterPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { DashboardPage } from './pages/DashboardPage';
@@ -40,7 +39,7 @@ export const App: React.FC = () => {
           {/* Authentication & Recovery Routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/parent-login" element={<Navigate to="/login" replace />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/register" element={<LoginPage initialTab="register" />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
 

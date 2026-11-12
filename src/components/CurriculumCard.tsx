@@ -36,7 +36,7 @@ export const CurriculumCard: React.FC<CurriculumCardProps> = ({ area, expandedDe
               <img
                 src={area.image}
                 alt={area.title}
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                className="w-full h-full object-contain object-center transition-transform duration-500 hover:scale-[1.03]"
               />
               <div className="absolute top-3 left-3 rtl:left-auto rtl:right-3 p-2 rounded-xl bg-white/92 dark:bg-forest-900/92 backdrop-blur-md shadow-soft border border-beige-200 dark:border-forest-700">
                 <IconComponent className="w-5 h-5 text-terracotta" />

@@ -54,7 +54,7 @@ export const Testimonials: React.FC = () => {
               <img
                 src={testimonialsData[currentIndex].avatar}
                 alt={testimonialsData[currentIndex].parentName}
-                className="w-14 h-14 rounded-full object-cover border-2 border-forest-400"
+                className="w-14 h-14 rounded-full object-cover object-top bg-beige-100 dark:bg-forest-800 border-2 border-forest-400"
               />
               <div>
                 <p className="font-serif font-bold text-base text-forest-900 dark:text-cream">
@@ -116,7 +116,7 @@ export const Testimonials: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-3 pt-3 border-t border-beige-200/60 dark:border-forest-800">
-                <img src={t.avatar} alt={t.parentName} className="w-9 h-9 rounded-full object-cover" />
+                <img src={t.avatar} alt={t.parentName} className="w-9 h-9 rounded-full object-cover object-top bg-beige-100 dark:bg-forest-800" />
                 <div>
                   <p className="text-xs font-bold text-forest-900 dark:text-cream">{t.parentName}</p>
                   <p className="text-[10px] text-forest-600 dark:text-sage-300">{t.program}</p>

@@ -38,13 +38,21 @@ export interface UserProfile {
 export interface RegisterPayload {
   name: string;
   email: string;
-  phone: string;
+  phone?: string;
   password: string;
   confirmPassword: string;
-  childName: string;
-  childAge: string;
-  preferredProgram: string;
-  agreeToTerms: boolean;
+  requestedRole?: 'parent' | 'teacher';
+  childName?: string;
+  childAge?: string;
+  preferredProgram?: string;
+  agreeToTerms?: boolean;
+}
+
+export interface RegisterResult {
+  user?: UserProfile;
+  pendingApproval?: boolean;
+  requestedRole?: 'parent' | 'teacher';
+  message?: string;
 }
 
 const EMPTY_CHILD_PROFILE: ChildProfileData = {
@@ -112,7 +120,7 @@ interface SettingsContextType {
   authLoading: boolean;
   isAuthenticated: boolean;
   login: (email: string, password: string, rememberMe?: boolean) => Promise<UserProfile>;
-  register: (payload: RegisterPayload) => Promise<UserProfile>;
+  register: (payload: RegisterPayload) => Promise<RegisterResult>;
   logout: () => Promise<void>;
   refreshPortalData: () => Promise<UserProfile | null>;
 
@@ -302,14 +310,17 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return res.user;
   };
 
-  const register = async (payload: RegisterPayload): Promise<UserProfile> => {
-    await apiRequest<{ user: UserProfile }>('/api/auth/register', {
+  const register = async (payload: RegisterPayload): Promise<RegisterResult> => {
+    const res = await apiRequest<RegisterResult>('/api/auth/register', {
       method: 'POST',
       body: payload,
     });
+    if (res.pendingApproval) {
+      return res;
+    }
     const overview = await apiRequest<ParentOverviewResponse>('/api/parent/overview');
     applyParentOverview(overview);
-    return overview.user;
+    return { user: overview.user };
   };
 
   const logout = async (): Promise<void> => {

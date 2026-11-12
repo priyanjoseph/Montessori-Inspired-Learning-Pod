@@ -71,7 +71,7 @@ export const DashboardPage: React.FC = () => {
               <img
                 src={childProfile.photo}
                 alt={childProfile.name}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl object-cover border-4 border-white/20 shadow-soft"
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl object-contain object-center bg-beige-100 dark:bg-forest-800 border-4 border-white/20 shadow-soft"
               />
               <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-sage-400 text-forest-900 flex items-center justify-center text-xs font-bold border-2 border-forest-900" title="Active">
                 ✓
@@ -272,11 +272,11 @@ export const DashboardPage: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
                   {/* Photo */}
-                  <div className="md:col-span-5 rounded-2xl overflow-hidden h-52 bg-beige-100 shadow-sm relative">
+                  <div className="md:col-span-5 rounded-2xl overflow-hidden h-52 bg-beige-100 dark:bg-forest-800 shadow-sm relative">
                     <img
                       src={latestLog.photoUrl}
                       alt={latestLog.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain object-center"
                     />
                     <div className="absolute top-2.5 left-2.5 rtl:left-auto rtl:right-2.5">
                       <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/90 text-forest-900 backdrop-blur-sm border border-beige-200">

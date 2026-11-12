@@ -36,7 +36,7 @@ export const MyChildPage: React.FC = () => {
               <img
                 src={childProfile.photo}
                 alt={childProfile.name}
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl object-cover border-4 border-sage-200 shadow-soft"
+                className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl object-contain object-center bg-beige-100 dark:bg-forest-800 border-4 border-sage-200 shadow-soft"
               />
               <span className="absolute -bottom-1 -right-1 px-2.5 py-0.5 rounded-full bg-forest-600 text-cream text-[10px] font-bold border-2 border-white shadow-sm">
                 Active Student

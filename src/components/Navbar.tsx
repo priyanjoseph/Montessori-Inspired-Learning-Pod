@@ -8,7 +8,6 @@ import {
   House,
   Layers,
   LayoutDashboard,
-  LogIn,
   LogOut,
   Menu,
   PhoneCall,
@@ -60,6 +59,9 @@ const DASHBOARD_OPTIONS: {
   { id: 'admin', label: 'Admin', to: '/admin', icon: Shield },
   { id: 'user', label: 'User', to: '/dashboard', icon: User },
 ];
+
+const NAV_BTN_BASE =
+  'inline-flex items-center justify-center gap-1.5 h-9 px-2.5 xl:px-3.5 rounded-full text-xs xl:text-[13px] font-semibold leading-none whitespace-nowrap border box-border transition-all duration-200 relative focus:outline-none focus:ring-2 focus:ring-forest-400';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -207,7 +209,7 @@ export const Navbar: React.FC = () => {
           {/* Center: Desktop Navigation Links (Home ▼ | Programs | Curriculum | About Us | Contact | Dashboard ▼) */}
           <nav
             aria-label="Main Navigation"
-            className="hidden lg:flex items-center justify-center gap-1 xl:gap-2"
+            className="hidden lg:flex items-center justify-center gap-1.5 xl:gap-2"
           >
             {/* Outlined Pill Home Dropdown */}
             <div className="relative">
@@ -217,10 +219,10 @@ export const Navbar: React.FC = () => {
                 aria-haspopup="menu"
                 aria-expanded={openDropdown === 'home'}
                 aria-controls="desktop-home-menu"
-                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs xl:text-sm transition-all duration-200 relative whitespace-nowrap border focus:outline-none focus:ring-2 focus:ring-forest-400 ${
+                className={`${NAV_BTN_BASE} ${
                   isHomeActive || openDropdown === 'home'
-                    ? 'bg-beige-200/85 dark:bg-forest-800 border-forest-700/75 dark:border-sage-400/75 text-forest-900 dark:text-cream font-semibold shadow-sm'
-                    : 'bg-beige-100/85 dark:bg-forest-900/90 border-forest-700/55 dark:border-sage-400/55 text-forest-800 dark:text-cream font-medium hover:bg-beige-200/75 dark:hover:bg-forest-800 hover:border-forest-800 dark:hover:border-sage-300'
+                    ? 'bg-beige-200/85 dark:bg-forest-800 border-forest-700/75 dark:border-sage-400/75 text-forest-900 dark:text-cream shadow-sm'
+                    : 'bg-beige-100/85 dark:bg-forest-900/90 border-forest-700/55 dark:border-sage-400/55 text-forest-800 dark:text-cream hover:bg-beige-200/75 dark:hover:bg-forest-800 hover:border-forest-800 dark:hover:border-sage-300'
                 }`}
               >
                 <span>Home</span>
@@ -288,10 +290,10 @@ export const Navbar: React.FC = () => {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `px-2.5 xl:px-3 py-1.5 rounded-full text-xs xl:text-sm font-medium transition-all duration-200 relative whitespace-nowrap ${
+                  `${NAV_BTN_BASE} ${
                     isActive
-                      ? 'text-forest-900 dark:text-cream font-semibold bg-beige-200/75 dark:bg-forest-800/90'
-                      : 'text-forest-700 dark:text-beige-200 hover:text-forest-950 dark:hover:text-white hover:bg-beige-100/80 dark:hover:bg-forest-800/50'
+                      ? 'text-forest-900 dark:text-cream bg-beige-200/75 dark:bg-forest-800/90 border-beige-300/80 dark:border-forest-700'
+                      : 'text-forest-700 dark:text-beige-200 border-transparent hover:text-forest-950 dark:hover:text-white hover:bg-beige-100/80 dark:hover:bg-forest-800/50'
                   }`
                 }
               >
@@ -314,10 +316,10 @@ export const Navbar: React.FC = () => {
                 aria-haspopup="menu"
                 aria-expanded={openDropdown === 'dashboard'}
                 aria-controls="desktop-dashboard-menu"
-                className={`inline-flex items-center gap-1 px-2.5 xl:px-3 py-1.5 rounded-full text-xs xl:text-sm font-medium transition-all duration-200 relative whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-forest-400 ${
+                className={`${NAV_BTN_BASE} ${
                   isDashboardActive || openDropdown === 'dashboard'
-                    ? 'text-forest-900 dark:text-cream font-semibold bg-beige-200/75 dark:bg-forest-800/90'
-                    : 'text-forest-700 dark:text-beige-200 hover:text-forest-950 dark:hover:text-white hover:bg-beige-100/80 dark:hover:bg-forest-800/50'
+                    ? 'text-forest-900 dark:text-cream bg-beige-200/75 dark:bg-forest-800/90 border-beige-300/80 dark:border-forest-700'
+                    : 'text-forest-700 dark:text-beige-200 border-transparent hover:text-forest-950 dark:hover:text-white hover:bg-beige-100/80 dark:hover:bg-forest-800/50'
                 }`}
               >
                 <span>Dashboard</span>
@@ -378,24 +380,24 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Right: Swap Icon | Theme Toggle | Schedule a Tour | Login */}
-          <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+          <div className="flex items-center gap-1.5 xl:gap-2 flex-shrink-0">
             <DirectionToggle />
             <ThemeToggle compact />
 
             <button
               onClick={openTourModal}
               type="button"
-              className="hidden lg:inline-flex items-center gap-1.5 h-8 px-3.5 rounded-full bg-forest-700 hover:bg-forest-800 dark:bg-sage-500 dark:hover:bg-sage-400 text-cream dark:text-forest-950 text-xs font-semibold shadow-soft hover:shadow-soft-lg hover:-translate-y-0.5 transition-all duration-200 whitespace-nowrap"
+              className={`hidden lg:inline-flex ${NAV_BTN_BASE} border-forest-700 dark:border-sage-500 bg-forest-700 hover:bg-forest-800 dark:bg-sage-500 dark:hover:bg-sage-400 text-cream dark:text-forest-950 shadow-soft hover:shadow-soft-lg`}
             >
               <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
               <span>Schedule a Tour</span>
             </button>
 
             {user ? (
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 xl:gap-2">
                 <Link
                   to={user.role === 'admin' ? '/admin' : '/dashboard'}
-                  className="inline-flex items-center gap-1 h-7 sm:h-8 px-2 sm:px-3.5 rounded-lg border-2 border-forest-700/80 dark:border-sage-400/80 bg-cream/95 dark:bg-forest-900 text-forest-900 dark:text-cream hover:bg-forest-700 hover:text-cream dark:hover:bg-sage-400 dark:hover:text-forest-950 text-[11px] sm:text-xs font-semibold transition-all duration-200 whitespace-nowrap"
+                  className={`${NAV_BTN_BASE} border-forest-700/80 dark:border-sage-400/80 bg-cream/95 dark:bg-forest-900 text-forest-900 dark:text-cream hover:bg-forest-700 hover:text-cream dark:hover:bg-sage-400 dark:hover:text-forest-950`}
                 >
                   {user.role === 'admin' ? (
                     <Shield className="w-3.5 h-3.5 flex-shrink-0" />
@@ -413,18 +415,17 @@ export const Navbar: React.FC = () => {
                     navigate('/');
                   }}
                   title="Sign Out"
-                  className="hidden sm:inline-flex items-center gap-1 h-8 px-2.5 rounded-lg border border-beige-400 dark:border-forest-600 text-forest-800 dark:text-beige-100 hover:bg-terracotta/15 hover:border-terracotta/50 hover:text-terracotta text-xs font-semibold transition-colors whitespace-nowrap"
+                  className={`hidden sm:inline-flex ${NAV_BTN_BASE} border-beige-400 dark:border-forest-600 text-forest-800 dark:text-beige-100 hover:bg-terracotta/15 hover:border-terracotta/50 hover:text-terracotta`}
                 >
-                  <LogOut className="w-3.5 h-3.5" />
+                  <LogOut className="w-3.5 h-3.5 flex-shrink-0" />
                   <span className="sr-only xl:not-sr-only">Logout</span>
                 </button>
               </div>
             ) : (
               <Link
                 to="/login"
-                className="inline-flex items-center gap-1 h-7 sm:h-8 px-2 sm:px-3.5 rounded-lg border-2 border-forest-700 dark:border-sage-400 bg-white/80 dark:bg-forest-900/90 text-forest-900 dark:text-cream hover:bg-forest-700 hover:text-cream dark:hover:bg-sage-400 dark:hover:text-forest-950 text-[11px] sm:text-xs font-semibold shadow-sm transition-all duration-200 whitespace-nowrap"
+                className={`${NAV_BTN_BASE} border-forest-700 dark:border-sage-400 bg-white/90 dark:bg-forest-900/90 text-forest-900 dark:text-cream hover:bg-forest-700 hover:text-cream dark:hover:bg-sage-400 dark:hover:text-forest-950 shadow-sm`}
               >
-                <LogIn className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
                 <span>Login</span>
               </Link>
             )}
@@ -433,7 +434,7 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="lg:hidden p-1.5 sm:p-2 rounded-xl text-forest-800 dark:text-cream hover:text-forest-950 hover:bg-beige-200/80 dark:hover:bg-forest-800 transition-colors focus:outline-none focus:ring-2 focus:ring-forest-400 flex-shrink-0"
+              className="lg:hidden inline-flex items-center justify-center w-9 h-9 rounded-full text-forest-800 dark:text-cream hover:text-forest-950 hover:bg-beige-200/80 dark:hover:bg-forest-800 transition-colors focus:outline-none focus:ring-2 focus:ring-forest-400 flex-shrink-0"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -641,10 +642,9 @@ export const Navbar: React.FC = () => {
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-2.5 rounded-xl border-2 border-forest-700 dark:border-sage-400 bg-white dark:bg-forest-900 text-forest-900 dark:text-cream font-semibold text-sm flex items-center justify-center gap-2"
+                  className="w-full h-10 rounded-full border border-forest-700 dark:border-sage-400 bg-white dark:bg-forest-900 text-forest-900 dark:text-cream font-semibold text-sm flex items-center justify-center"
                 >
-                  <LogIn className="w-4 h-4" />
-                  <span>Login to Portal</span>
+                  <span>Login</span>
                 </Link>
               )}
             </div>
