@@ -30,24 +30,15 @@ export const MyChildPage: React.FC = () => {
       <div className="rounded-4xl bg-white border border-beige-300 shadow-soft-lg p-6 sm:p-10">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
           
-          {/* Child Identity & Photo */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-            <div className="relative">
-              <img
-                src={childProfile.photo}
-                alt={childProfile.name}
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl object-contain object-center bg-beige-100 dark:bg-forest-800 border-4 border-sage-200 shadow-soft"
-              />
-              <span className="absolute -bottom-1 -right-1 px-2.5 py-0.5 rounded-full bg-forest-600 text-cream text-[10px] font-bold border-2 border-white shadow-sm">
+          {/* Child Identity */}
+          <div className="space-y-1.5 text-left rtl:text-right">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-2.5 py-0.5 rounded-full bg-forest-600 text-cream text-[10px] font-bold shadow-sm">
                 Active Student
               </span>
-            </div>
-
-            <div className="space-y-1.5 text-left rtl:text-right">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-forest-700 bg-sage-100 px-3 py-0.5 rounded-full border border-sage-200">
-                  {childProfile.program}
-                </span>
+              <span className="text-xs font-bold uppercase tracking-wider text-forest-700 bg-sage-100 px-3 py-0.5 rounded-full border border-sage-200">
+                {childProfile.program}
+              </span>
                 <span className="text-xs text-forest-600 font-medium">
                   {childProfile.classroom}
                 </span>
@@ -64,7 +55,6 @@ export const MyChildPage: React.FC = () => {
                 <span className="opacity-40">•</span>
                 <span><strong>Enrolled:</strong> {childProfile.enrollmentDate}</span>
               </div>
-            </div>
           </div>
 
           {/* Assigned Guides Card */}

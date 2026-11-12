@@ -74,7 +74,7 @@ export const ForgotPasswordPage: React.FC = () => {
           </div>
           <div>
             <span className="font-serif font-bold text-lg text-forest-900 dark:text-cream block leading-none">
-              Montessori Learning Pod
+              Montessori Pod
             </span>
             <span className="text-[11px] text-forest-600 dark:text-sage-300 font-semibold uppercase tracking-wider">
               Account Recovery
@@ -117,7 +117,7 @@ export const ForgotPasswordPage: React.FC = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} noValidate className="space-y-4">
           <div>
             <label
               htmlFor="forgot-email"

@@ -37,15 +37,41 @@ export async function createAppServer({ distDir = path.join(process.cwd(), 'dist
     }
 
     const pathname = new URL(reqUrl, 'http://localhost').pathname;
+    const normalizedPath = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
+    const KNOWN_SPA_ROUTES = new Set([
+      '/',
+      '/programs',
+      '/curriculum',
+      '/about',
+      '/contact',
+      '/login',
+      '/parent-login',
+      '/register',
+      '/forgot-password',
+      '/reset-password',
+      '/dashboard',
+      '/dashboard/child',
+      '/dashboard/logs',
+      '/dashboard/reports',
+      '/dashboard/tuition',
+      '/dashboard/notifications',
+      '/dashboard/settings',
+      '/admin',
+    ]);
+    const isKnownSpaRoute =
+      KNOWN_SPA_ROUTES.has(normalizedPath) || /^\/admin\/[^/]+$/.test(normalizedPath);
+
     const safeRel = path.normalize(pathname).replace(/^(\.\.[/\\])+/, '');
     let filePath = path.join(distDir, safeRel === '/' ? 'index.html' : safeRel);
+    let statusCode = 200;
 
     if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
       filePath = path.join(distDir, 'index.html');
+      statusCode = isKnownSpaRoute ? 200 : 404;
     }
 
     const ext = path.extname(filePath).toLowerCase();
-    res.writeHead(200, { 'Content-Type': MIME_TYPES[ext] || 'application/octet-stream' });
+    res.writeHead(statusCode, { 'Content-Type': MIME_TYPES[ext] || 'application/octet-stream' });
     fs.createReadStream(filePath).pipe(res);
   });
 
@@ -59,7 +85,7 @@ if (isMainModule) {
   const port = Number(process.env.PORT || '4174');
   const { server } = await createAppServer();
   server.listen(port, () => {
-    console.log(`Montessori Learning Pod server running on http://localhost:${port}`);
+    console.log(`Montessori Pod server running on http://localhost:${port}`);
   });
 }
 

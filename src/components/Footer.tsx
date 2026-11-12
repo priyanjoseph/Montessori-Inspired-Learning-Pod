@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
               </div>
               <div>
                 <span className="font-serif text-lg font-bold tracking-tight text-white block">
-                  Montessori Learning Pod
+                  Montessori Pod
                 </span>
                 <span className="text-[11px] text-sage-200 tracking-wider uppercase block">
                   Curiosity • Autonomy • Grace
@@ -51,7 +51,7 @@ export const Footer: React.FC = () => {
             </Link>
 
             <p className="text-forest-200/80 text-sm leading-relaxed">
-              A nurturing Montessori-inspired learning sanctuary where children explore, create, develop bodily independence, and learn at their own natural pace.
+              Montessori Pod is a nurturing learning sanctuary where children explore, create, develop bodily independence, and learn at their own natural pace.
             </p>
 
             <div className="pt-2 flex items-center gap-2 text-xs text-sage-300">
@@ -220,7 +220,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Section */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-forest-300 gap-4">
           <p className="text-center md:text-left rtl:md:text-right">
-            © 2026 Montessori Learning Pod. All rights reserved. Nurturing future thinkers with care and dignity.
+            © 2026 Montessori Pod. All rights reserved. Nurturing future thinkers with care and dignity.
           </p>
 
           <div className="flex items-center gap-6">

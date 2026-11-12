@@ -26,7 +26,6 @@ export interface UserProfile {
   email: string;
   phone: string;
   role: UserRole;
-  avatar?: string;
   provider?: string;
   hasPassword?: boolean;
   emergencyContact?: string;
@@ -41,7 +40,6 @@ export interface RegisterPayload {
   phone?: string;
   password: string;
   confirmPassword: string;
-  requestedRole?: 'parent' | 'teacher';
   childName?: string;
   childAge?: string;
   preferredProgram?: string;
@@ -50,14 +48,11 @@ export interface RegisterPayload {
 
 export interface RegisterResult {
   user?: UserProfile;
-  pendingApproval?: boolean;
-  requestedRole?: 'parent' | 'teacher';
   message?: string;
 }
 
 const EMPTY_CHILD_PROFILE: ChildProfileData = {
   name: '',
-  photo: '',
   age: '',
   birthDate: '',
   program: '',
@@ -311,13 +306,10 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const register = async (payload: RegisterPayload): Promise<RegisterResult> => {
-    const res = await apiRequest<RegisterResult>('/api/auth/register', {
+    await apiRequest<RegisterResult>('/api/auth/register', {
       method: 'POST',
       body: payload,
     });
-    if (res.pendingApproval) {
-      return res;
-    }
     const overview = await apiRequest<ParentOverviewResponse>('/api/parent/overview');
     applyParentOverview(overview);
     return { user: overview.user };

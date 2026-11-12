@@ -31,7 +31,7 @@ export const programsData: ProgramItem[] = [
     detailedOverview: 'In our Toddler Community, children transition from the home environment into their first cooperative social sphere. Shelves are at child-eye level, featuring beautifully crafted natural wooden items, dressing frames, child-sized washing stations, and organic materials that welcome little hands into meaningful, purposeful work.',
     ratio: '1 Guide : 4 Toddlers',
     hours: '8:30 AM – 12:30 PM (Half-Day) / 3:00 PM (Full-Day Option)',
-    image: 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&crop=entropy&q=80&w=1200&h=750',
     badgeColor: 'bg-sage-100 text-forest-700 border-sage-200',
     keyActivities: [
       'Sensory exploration with natural textures, waterscapes, and clay',
@@ -76,7 +76,7 @@ export const programsData: ProgramItem[] = [
     detailedOverview: 'The Primary environment brings together 3-to-6 year olds in a harmonious family-style learning ecosystem. Older children naturally mentor younger peers, while younger children observe complex activities with awe and anticipation. Mathematical concepts transform from physical golden bead cubes into internalized arithmetic, and cursive sandpaper letters awaken a passionate love of reading.',
     ratio: '1 Guide : 10 Children (2 Certified Lead Guides per pod)',
     hours: '8:15 AM – 3:15 PM (Extended Day available to 5:30 PM)',
-    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&crop=entropy&q=80&w=1200&h=750',
     badgeColor: 'bg-terracotta-100 text-terracotta-700 border-terracotta-200',
     keyActivities: [
       'Early mathematics with concrete Golden Bead Material and Stamp Games',
@@ -122,7 +122,7 @@ export const programsData: ProgramItem[] = [
     detailedOverview: 'At age six, a dramatic metamorphosis occurs. Children develop a hunger for reason, justice, social belonging, and understanding the vast universe. In our Early Elementary pod, learning expands beyond the classroom walls through student-planned "Going Out" expeditions, deep cross-disciplinary research notebooks, mathematical bead frames, and student-run community committees.',
     ratio: '1 Guide : 12 Students',
     hours: '8:15 AM – 3:30 PM',
-    image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&crop=entropy&q=80&w=1200&h=750',
     badgeColor: 'bg-beige-200 text-forest-800 border-beige-300',
     keyActivities: [
       'Advanced mathematics: checkerboard multiplication, fraction circles, and decimal hierarchies',

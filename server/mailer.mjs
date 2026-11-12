@@ -83,7 +83,7 @@ async function sendSmtpRaw(cfg, { to, subject, text, html }) {
 
     const boundary = `mlp_${Date.now().toString(36)}`;
     const payload = [
-      `From: Montessori Learning Pod <${cfg.from}>`,
+      `From: Montessori Pod <${cfg.from}>`,
       `To: <${to}>`,
       `Subject: ${subject}`,
       'MIME-Version: 1.0',
@@ -122,9 +122,9 @@ export async function sendPasswordResetEmail({ toEmail, toName, resetUrl }) {
   const safeName = toName || 'Parent';
   await sendSmtpRaw(cfg, {
     to: toEmail,
-    subject: 'Reset Your Montessori Learning Pod Password',
-    text: `Hello ${safeName},\n\nWe received a request to reset your Montessori Learning Pod password.\nOpen this link within 30 minutes to set a new password:\n${resetUrl}\n\nIf you did not request this, you can safely ignore this email.`,
-    html: `<div style="font-family:sans-serif;color:#1D2A1F;line-height:1.6;"><h2>Montessori Learning Pod</h2><p>Hello ${safeName},</p><p>Click the button below within 30 minutes to reset your password:</p><p><a href="${resetUrl}" style="display:inline-block;padding:10px 20px;background:#435B45;color:#FAF7F0;border-radius:999px;text-decoration:none;font-weight:600;">Reset Password</a></p><p style="font-size:12px;color:#554232;">If you did not request a password reset, no changes have been made to your account.</p></div>`,
+    subject: 'Reset Your Montessori Pod Password',
+    text: `Hello ${safeName},\n\nWe received a request to reset your Montessori Pod password.\nOpen this link within 30 minutes to set a new password:\n${resetUrl}\n\nIf you did not request this, you can safely ignore this email.`,
+    html: `<div style="font-family:sans-serif;color:#1D2A1F;line-height:1.6;"><h2>Montessori Pod</h2><p>Hello ${safeName},</p><p>Click the button below within 30 minutes to reset your password:</p><p><a href="${resetUrl}" style="display:inline-block;padding:10px 20px;background:#435B45;color:#FAF7F0;border-radius:999px;text-decoration:none;font-weight:600;">Reset Password</a></p><p style="font-size:12px;color:#554232;">If you did not request a password reset, no changes have been made to your account.</p></div>`,
   });
 
   return { sent: true };

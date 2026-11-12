@@ -7,7 +7,7 @@ import { useSettings } from '../context/SettingsContext';
  * Update `streetAddress` and `mapQuery` if a confirmed physical street address changes before publishing.
  */
 const CAMPUS_LOCATION = {
-  name: 'Montessori Learning Pod',
+  name: 'Montessori Pod',
   streetAddress: '742 Evergreen Botanical Way, Boulder, CO 80302',
   areaLabel: 'Boulder Foothills, CO 80302',
   parkingNote: 'Free parent visitor parking available at North Cedar Gateway.',
@@ -338,48 +338,49 @@ export const ContactPage: React.FC = () => {
 
         </div>
 
-        {/* Dedicated Embedded Google Maps Section: Find Our Campus */}
-        <section className="mt-10 bg-white dark:bg-forest-900 rounded-4xl p-6 sm:p-8 border border-beige-300 dark:border-forest-700 shadow-soft-lg">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-forest-700 dark:text-sage-200 bg-sage-100 dark:bg-forest-800 px-3 py-1 rounded-full border border-sage-200 dark:border-forest-700">
+        {/* Compact Embedded Google Maps Section: Find Our Campus */}
+        <section className="mt-8 bg-white dark:bg-forest-900 rounded-3xl sm:rounded-4xl p-5 sm:p-6 border border-beige-300 dark:border-forest-700 shadow-soft">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-7 items-center">
+            <div className="lg:col-span-5 space-y-3">
+              <span className="inline-block text-xs font-bold uppercase tracking-wider text-forest-700 dark:text-sage-200 bg-sage-100 dark:bg-forest-800 px-3 py-1 rounded-full border border-sage-200 dark:border-forest-700">
                 {CAMPUS_LOCATION.areaLabel}
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-forest-900 dark:text-cream mt-2.5">
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-forest-900 dark:text-cream">
                 Find Our Campus
               </h2>
-              <p className="text-xs sm:text-sm text-forest-600 dark:text-beige-200 mt-1 flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-terracotta flex-shrink-0" />
+              <p className="text-xs sm:text-sm text-forest-600 dark:text-beige-200 flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-terracotta flex-shrink-0 mt-0.5" />
                 <span>{CAMPUS_LOCATION.streetAddress}</span>
               </p>
+              <p className="text-xs text-softbrown-400 dark:text-beige-300/80 leading-relaxed">
+                {CAMPUS_LOCATION.parkingNote} Zoom, pan, or launch turn-by-turn directions below.
+              </p>
+              <div className="pt-1">
+                <a
+                  href={googleMapsDirectionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 h-10 px-5 rounded-full bg-forest-700 hover:bg-forest-800 dark:bg-sage-500 dark:hover:bg-sage-400 text-cream dark:text-forest-950 text-xs sm:text-sm font-semibold shadow-soft hover:shadow-soft-lg transition-all whitespace-nowrap"
+                >
+                  <Navigation className="w-4 h-4" />
+                  <span>Get Directions</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                </a>
+              </div>
             </div>
 
-            <a
-              href={googleMapsDirectionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full bg-forest-700 hover:bg-forest-800 dark:bg-sage-500 dark:hover:bg-sage-400 text-cream dark:text-forest-950 text-xs sm:text-sm font-semibold shadow-soft hover:shadow-soft-lg hover:-translate-y-0.5 transition-all whitespace-nowrap self-start sm:self-center"
-            >
-              <Navigation className="w-4 h-4" />
-              <span>Get Directions</span>
-              <ExternalLink className="w-3.5 h-3.5 opacity-80" />
-            </a>
-          </div>
-
-          <div className="relative w-full h-[320px] sm:h-[380px] lg:h-[420px] rounded-3xl overflow-hidden border border-beige-300 dark:border-forest-700 bg-beige-100 dark:bg-forest-800 shadow-soft">
-            <iframe
-              title="Montessori Learning Pod Campus Location Map"
-              src={googleMapsEmbedUrl}
-              className="w-full h-full border-0"
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-
-          <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-softbrown-400 dark:text-beige-300/80">
-            <p>{CAMPUS_LOCATION.parkingNote}</p>
-            <p>Interactive map: zoom, pan, or click Get Directions for turn-by-turn navigation.</p>
+            <div className="lg:col-span-7">
+              <div className="relative w-full h-[190px] sm:h-[215px] lg:h-[235px] rounded-2xl overflow-hidden border border-beige-300 dark:border-forest-700 bg-beige-100 dark:bg-forest-800 shadow-soft">
+                <iframe
+                  title="Montessori Pod Campus Location Map"
+                  src={googleMapsEmbedUrl}
+                  className="w-full h-full border-0"
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
           </div>
         </section>
 

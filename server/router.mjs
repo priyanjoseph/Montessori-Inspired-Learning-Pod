@@ -69,7 +69,6 @@ function sanitizeUser(row) {
     email: row.email,
     phone: row.phone || '',
     role: row.role,
-    avatar: row.avatar || '',
     provider: row.provider || 'local',
     hasPassword: Boolean(row.password_hash),
     emergencyContact: row.emergency_contact || '',
@@ -96,7 +95,6 @@ function mapChildRow(row) {
     classroom: row.classroom,
     enrollmentDate: row.enrollment_date,
     assignedTeacher: row.assigned_teacher,
-    photo: row.photo,
     assignedTeachers: safeJsonParse(row.assigned_teachers_json, []),
     attendanceStats: safeJsonParse(row.attendance_stats_json, {
       totalDays: 0,
@@ -127,7 +125,6 @@ function mapLogRow(row) {
     skillsDeveloped: safeJsonParse(row.skills_developed_json, []),
     materialsUsed: row.materials_used,
     guideName: row.guide_name,
-    guideAvatar: row.guide_avatar,
     comments: safeJsonParse(row.comments_json, []),
   };
 }
@@ -143,7 +140,6 @@ function mapReportRow(row) {
     teacherName: row.teacher_name,
     teacherRole: row.teacher_role,
     teacherCredentials: row.teacher_credentials,
-    teacherAvatar: row.teacher_avatar,
     overallProgress: row.overall_progress,
     progressGrade: row.progress_grade,
     strengths: safeJsonParse(row.strengths_json, []),
@@ -563,7 +559,6 @@ export async function handleApiRequest(req, res, db) {
       const phone = String(body.phone || '').trim();
       const password = String(body.password || '');
       const confirmPassword = body.confirmPassword !== undefined ? String(body.confirmPassword) : password;
-      const requestedRole = String(body.requestedRole || 'parent').trim().toLowerCase();
       const childName = String(body.childName || '').trim();
       const childAge = String(body.childAge || '').trim();
       const preferredProgram = String(body.preferredProgram || '').trim();
@@ -593,34 +588,6 @@ export async function handleApiRequest(req, res, db) {
       const existing = db.prepare('SELECT id FROM users WHERE lower(email) = ?').get(email);
       if (existing) {
         return sendJson(res, 409, { error: 'An account with this email address is already registered.' });
-      }
-
-      // SECURITY: Educator/Teacher portal accounts require Administrator approval; never self-grant 'admin'
-      if (requestedRole === 'teacher') {
-        const adminRow = db.prepare("SELECT id FROM users WHERE role = 'admin' LIMIT 1").get();
-        const now = new Date().toISOString();
-        const notifId = `notif-${crypto.randomUUID().slice(0, 8)}`;
-        const today = now.slice(0, 10);
-
-        if (adminRow) {
-          db.prepare(`
-            INSERT INTO notifications (id, user_id, target_role, title, message, type, date, timestamp, is_read, action_url)
-            VALUES (?, ?, 'admin', ?, ?, 'announcement', ?, 'Just now', 0, '/admin/staff')
-          `).run(
-            notifId,
-            adminRow.id,
-            'Educator Account Request',
-            `${name} (${email}) requested a Teacher / Guide account verification via the Create Account portal.`,
-            today
-          );
-        }
-
-        return sendJson(res, 202, {
-          pendingApproval: true,
-          requestedRole: 'teacher',
-          message:
-            'Your Teacher account request has been recorded for administrator review. Per existing role permissions, educator accounts must be verified by a Campus Administrator before portal access is activated.',
-        });
       }
 
       const userId = `user-${crypto.randomUUID().slice(0, 10)}`;
@@ -1373,7 +1340,7 @@ export async function handleApiRequest(req, res, db) {
             JSON.stringify(skills),
             String(body.materialsUsed || 'Montessori Classroom Materials'),
             String(body.guideName || admin.name),
-            'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=256',
+            '',
             now.toISOString()
           );
 
@@ -1446,7 +1413,7 @@ export async function handleApiRequest(req, res, db) {
             String(body.teacherName || admin.name),
             'Lead Montessori Guide',
             'AMS / AMI Certified Educator',
-            'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=256',
+            '',
             overallProgress,
             String(body.progressGrade || 'Strong Consistent Growth'),
             JSON.stringify(strengths),

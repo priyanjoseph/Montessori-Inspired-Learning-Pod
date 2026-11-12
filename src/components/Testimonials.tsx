@@ -31,8 +31,8 @@ export const Testimonials: React.FC = () => {
         </div>
 
         {/* Featured Testimonial Highlight Card */}
-        <div className="max-w-4xl mx-auto bg-white dark:bg-forest-900 rounded-4xl p-8 sm:p-12 border border-beige-300 dark:border-forest-700 shadow-soft-xl relative mb-12">
-          <Quote className="absolute top-6 right-8 rtl:right-auto rtl:left-8 w-16 h-16 text-beige-200 dark:text-forest-800 pointer-events-none" />
+        <div className="max-w-4xl mx-auto bg-white dark:bg-forest-900 rounded-3xl sm:rounded-4xl p-6 sm:p-12 border border-beige-300 dark:border-forest-700 shadow-soft-xl relative mb-10 sm:mb-12">
+          <Quote className="absolute top-4 right-5 sm:top-6 sm:right-8 rtl:right-auto rtl:left-5 sm:rtl:left-8 w-10 h-10 sm:w-16 sm:h-16 text-beige-200 dark:text-forest-800 pointer-events-none" />
 
           {/* Star ratings */}
           <div className="flex items-center gap-1 mb-4 text-terracotta">
@@ -50,12 +50,7 @@ export const Testimonials: React.FC = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-beige-200 dark:border-forest-800">
-            <div className="flex items-center gap-4">
-              <img
-                src={testimonialsData[currentIndex].avatar}
-                alt={testimonialsData[currentIndex].parentName}
-                className="w-14 h-14 rounded-full object-cover object-top bg-beige-100 dark:bg-forest-800 border-2 border-forest-400"
-              />
+            <div>
               <div>
                 <p className="font-serif font-bold text-base text-forest-900 dark:text-cream">
                   {testimonialsData[currentIndex].parentName}
@@ -115,8 +110,7 @@ export const Testimonials: React.FC = () => {
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 pt-3 border-t border-beige-200/60 dark:border-forest-800">
-                <img src={t.avatar} alt={t.parentName} className="w-9 h-9 rounded-full object-cover object-top bg-beige-100 dark:bg-forest-800" />
+              <div className="pt-3 border-t border-beige-200/60 dark:border-forest-800">
                 <div>
                   <p className="text-xs font-bold text-forest-900 dark:text-cream">{t.parentName}</p>
                   <p className="text-[10px] text-forest-600 dark:text-sage-300">{t.program}</p>

@@ -15,8 +15,6 @@ import {
   X,
   ChevronDown,
   Sparkles,
-  Home,
-  User,
   ShieldCheck,
   CheckCircle2,
   Calendar
@@ -98,22 +96,19 @@ export const DashboardLayout: React.FC = () => {
           </div>
 
           {/* Child Snapshot Pill in Sidebar */}
-          <div className="p-4 mx-3 my-3 rounded-2xl bg-beige-100/70 border border-beige-200 flex items-center gap-3">
-            <div className="relative">
-              <img
-                src={childProfile.photo}
-                alt={childProfile.name}
-                className="w-10 h-10 rounded-full object-cover object-top bg-beige-100 border-2 border-forest-500 shadow-sm"
-              />
-              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-forest-500 border border-white" title="Active in Work Cycle" />
-            </div>
-            <div className="min-w-0 flex-1 text-left rtl:text-right">
-              <p className="font-serif font-bold text-xs text-forest-900 truncate">
-                {childProfile.name}
-              </p>
-              <p className="text-[10px] text-forest-600 truncate">
-                {childProfile.program.split('(')[0]}
-              </p>
+          <div className="p-4 mx-3 my-3 rounded-2xl bg-beige-100/70 border border-beige-200">
+            <div className="min-w-0 flex items-center justify-between gap-2 text-left rtl:text-right">
+              <div className="min-w-0">
+                <p className="font-serif font-bold text-xs text-forest-900 truncate">
+                  {childProfile.name}
+                </p>
+                <p className="text-[10px] text-forest-600 truncate">
+                  {childProfile.program.split('(')[0]}
+                </p>
+              </div>
+              <span className="text-[10px] font-semibold text-forest-700 bg-sage-100 px-2 py-0.5 rounded-full flex-shrink-0">
+                Active
+              </span>
             </div>
           </div>
 
@@ -153,15 +148,7 @@ export const DashboardLayout: React.FC = () => {
         </div>
 
         {/* Sidebar Bottom / Logout */}
-        <div className="p-4 border-t border-beige-200 space-y-2">
-          <Link
-            to="/"
-            className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-forest-700 hover:text-forest-900 hover:bg-beige-100 transition-colors"
-          >
-            <Home className="w-4 h-4 text-forest-500" />
-            <span>Home</span>
-          </Link>
-
+        <div className="p-4 border-t border-beige-200">
           <button
             onClick={handleLogout}
             type="button"
@@ -203,16 +190,14 @@ export const DashboardLayout: React.FC = () => {
               </div>
 
               {/* Child Info */}
-              <div className="p-3 m-3 rounded-2xl bg-beige-100 flex items-center gap-3">
-                <img
-                  src={childProfile.photo}
-                  alt={childProfile.name}
-                  className="w-9 h-9 rounded-full object-cover object-top bg-beige-100 border border-forest-500"
-                />
-                <div className="text-left rtl:text-right">
-                  <p className="font-bold text-xs text-forest-900">{childProfile.name}</p>
-                  <p className="text-[10px] text-forest-600">{childProfile.program}</p>
+              <div className="p-3 m-3 rounded-2xl bg-beige-100 flex items-center justify-between gap-2">
+                <div className="text-left rtl:text-right min-w-0">
+                  <p className="font-bold text-xs text-forest-900 truncate">{childProfile.name}</p>
+                  <p className="text-[10px] text-forest-600 truncate">{childProfile.program}</p>
                 </div>
+                <span className="text-[10px] font-semibold text-forest-700 bg-sage-100 px-2 py-0.5 rounded-full flex-shrink-0">
+                  Active
+                </span>
               </div>
 
               {/* Navigation Items */}
@@ -245,15 +230,7 @@ export const DashboardLayout: React.FC = () => {
               </nav>
             </div>
 
-            <div className="p-4 border-t border-beige-200 space-y-2">
-              <Link
-                to="/"
-                onClick={() => setMobileSidebarOpen(false)}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-forest-700 hover:bg-beige-100"
-              >
-                <Home className="w-4 h-4" />
-                <span>Home</span>
-              </Link>
+            <div className="p-4 border-t border-beige-200">
               <button
                 onClick={handleLogout}
                 className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-terracotta hover:bg-terracotta-50 text-left rtl:text-right"
@@ -274,37 +251,32 @@ export const DashboardLayout: React.FC = () => {
         {/* Top Navigation Bar */}
         <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-beige-300 shadow-soft h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8">
           
-          {/* Left: Mobile hamburger & Dynamic page title */}
-          <div className="flex items-center gap-3">
+          {/* Left: Mobile ([☰] Montessori Pod) / Desktop (Dynamic page title) */}
+          <div className="flex items-center gap-3 min-w-0 flex-1 md:flex-initial">
             <button
               onClick={() => setMobileSidebarOpen(true)}
-              className="p-2 rounded-xl text-forest-800 hover:bg-beige-100 md:hidden"
+              className="p-2 rounded-xl text-forest-800 hover:bg-beige-100 md:hidden flex-shrink-0"
               aria-label="Open sidebar menu"
             >
               <Menu className="w-5 h-5" />
             </button>
 
-            <div>
+            <span className="font-serif text-lg font-bold tracking-tight text-forest-900 whitespace-nowrap truncate md:hidden">
+              Montessori Pod
+            </span>
+
+            <div className="hidden md:block">
               <h1 className="font-serif text-lg sm:text-xl font-bold text-forest-900 leading-tight">
                 {getPageTitle()}
               </h1>
-              <p className="text-[10px] text-forest-600 hidden sm:block">
+              <p className="text-[10px] text-forest-600">
                 Montessori Pod • Family Portal
               </p>
             </div>
           </div>
 
-          {/* Right: Actions, Notifications, Profile, RTL toggle */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            
-            <Link
-              to="/"
-              className="hidden lg:inline-flex items-center gap-1.5 text-xs font-semibold text-forest-700 hover:text-forest-900 px-3 py-1.5 rounded-full hover:bg-beige-100 transition-colors"
-            >
-              <Home className="w-3.5 h-3.5 text-forest-500" />
-              <span>Home</span>
-            </Link>
-
+          {/* Right: Notifications, Profile, RTL toggle (Desktop only) */}
+          <div className="hidden md:flex items-center gap-2 sm:gap-3.5">
             <DirectionToggle compact />
 
             {/* Notifications Bell Icon */}
@@ -324,15 +296,10 @@ export const DashboardLayout: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                className="flex items-center gap-2 pl-2 pr-2.5 py-1 rounded-full bg-beige-100 hover:bg-beige-200/80 transition-colors border border-beige-300 text-xs font-semibold text-forest-900"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-beige-100 hover:bg-beige-200/80 transition-colors border border-beige-300 text-xs font-semibold text-forest-900"
                 aria-expanded={profileDropdownOpen}
               >
-                <img
-                  src={user?.avatar || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=256'}
-                  alt={user?.name || 'Parent'}
-                  className="w-7 h-7 rounded-full object-cover object-top bg-beige-100 border border-forest-500"
-                />
-                <span className="hidden sm:inline max-w-[110px] truncate">{user?.name || 'Sarah Jenkins'}</span>
+                <span className="max-w-[140px] truncate">{user?.name || 'Sarah Jenkins'}</span>
                 <ChevronDown className="w-3.5 h-3.5 text-forest-600" />
               </button>
 
@@ -394,7 +361,7 @@ export const DashboardLayout: React.FC = () => {
         {/* Friendly Dashboard Footer */}
         <footer className="bg-white/80 border-t border-beige-300 py-5 text-center text-xs text-forest-600">
           <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-            <p>© 2026 Montessori Learning Pod • Nurturing Independent Curious Minds</p>
+            <p>© 2026 Montessori Pod • Nurturing Independent Curious Minds</p>
             <div className="flex items-center gap-3 text-[11px] text-softbrown-400">
               <span>Guide Email: amina@montessorilearningpod.edu</span>
               <span>•</span>

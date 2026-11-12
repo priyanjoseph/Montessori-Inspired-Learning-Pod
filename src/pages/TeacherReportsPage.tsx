@@ -65,12 +65,7 @@ export const TeacherReportsPage: React.FC = () => {
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-beige-200">
               
               {/* Report Header & Guide Bio */}
-              <div className="flex items-start gap-4">
-                <img
-                  src={report.teacherAvatar}
-                  alt={report.teacherName}
-                  className="w-14 h-14 rounded-2xl object-contain object-center bg-beige-100 dark:bg-forest-800 border-2 border-forest-400 shadow-sm flex-shrink-0"
-                />
+              <div>
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1">
                     <span className="text-xs font-bold uppercase tracking-wider text-terracotta bg-terracotta-50 px-2.5 py-0.5 rounded-full border border-terracotta-200">
@@ -346,7 +341,7 @@ export const TeacherReportsPage: React.FC = () => {
                   </div>
                   <div>
                     <h1 className="font-serif text-2xl font-bold tracking-tight text-forest-900">
-                      Montessori Learning Pod
+                      Montessori Pod
                     </h1>
                     <p className="text-xs text-forest-600">
                       742 Evergreen Botanical Way, Boulder, CO 80302 • info@montessorilearningpod.edu
@@ -425,7 +420,7 @@ export const TeacherReportsPage: React.FC = () => {
                 </div>
                 <div className="text-right rtl:text-left text-xs text-forest-600">
                   <p>Date Issued: {printableModal.reportDate}</p>
-                  <p className="text-[10px] text-forest-500">Official Montessori Learning Pod Seal</p>
+                  <p className="text-[10px] text-forest-500">Official Montessori Pod Seal</p>
                 </div>
               </div>
 

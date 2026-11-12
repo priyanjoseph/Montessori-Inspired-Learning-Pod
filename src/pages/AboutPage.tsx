@@ -13,7 +13,7 @@ export const AboutPage: React.FC = () => {
         {/* Hero Banner */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-bold uppercase tracking-wider text-forest-700 dark:text-sage-200 bg-sage-100 dark:bg-forest-900 px-3.5 py-1.5 rounded-full border border-sage-200 dark:border-forest-700">
-            About Our Learning Pod
+            About Montessori Pod
           </span>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold text-forest-900 dark:text-cream mt-4 mb-4">
             A Living Sanctuary for Childhood
@@ -29,9 +29,9 @@ export const AboutPage: React.FC = () => {
             <div className="lg:col-span-6 relative">
               <div className="rounded-3xl overflow-hidden shadow-soft-xl border-4 border-white dark:border-forest-800 bg-beige-100 dark:bg-forest-800">
                 <img
-                  src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=1200"
+                  src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&crop=entropy&q=80&w=960&h=800"
                   alt="Montessori learning pod founding and classroom space"
-                  className="w-full h-[400px] sm:h-[480px] object-contain object-center"
+                  className="w-full h-[270px] sm:h-[380px] lg:h-[480px] object-contain object-center"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 rtl:-right-auto rtl:-left-6 hidden sm:block p-4 rounded-2xl bg-white/95 dark:bg-forest-900/95 backdrop-blur-md shadow-soft-lg border border-beige-200 dark:border-forest-700 max-w-[220px]">

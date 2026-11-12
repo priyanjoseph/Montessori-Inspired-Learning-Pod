@@ -1,6 +1,21 @@
 import React, { useState } from 'react';
 import { CurriculumArea } from '../data/curriculumData';
-import { Sparkles, Eye, BookOpen, Binary, Globe, Palette, Sprout, ChevronDown, ChevronUp, Check, Layers } from 'lucide-react';
+import {
+  Sparkles,
+  Eye,
+  BookOpen,
+  Binary,
+  Globe,
+  Palette,
+  Sprout,
+  ChevronDown,
+  ChevronUp,
+  Check,
+  Layers,
+  HeartHandshake,
+  Award,
+  Compass,
+} from 'lucide-react';
 
 interface CurriculumCardProps {
   area: CurriculumArea;
@@ -29,37 +44,97 @@ export const CurriculumCard: React.FC<CurriculumCardProps> = ({ area, expandedDe
     >
       <div className="grid grid-cols-1 lg:grid-cols-12">
         
-        {/* Visual column (compact proportional image + quote) */}
-        <div className="lg:col-span-4 p-5 sm:p-6 bg-beige-50/75 dark:bg-forest-900/70 border-b lg:border-b-0 lg:border-r rtl:lg:border-r-0 rtl:lg:border-l border-beige-200 dark:border-forest-800 flex flex-col justify-between gap-4">
-          <div className="space-y-4">
-            <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] max-h-48 w-full rounded-2xl overflow-hidden bg-beige-100 dark:bg-forest-800 shadow-soft">
-              <img
-                src={area.image}
-                alt={area.title}
-                className="w-full h-full object-contain object-center transition-transform duration-500 hover:scale-[1.03]"
-              />
-              <div className="absolute top-3 left-3 rtl:left-auto rtl:right-3 p-2 rounded-xl bg-white/92 dark:bg-forest-900/92 backdrop-blur-md shadow-soft border border-beige-200 dark:border-forest-700">
-                <IconComponent className="w-5 h-5 text-terracotta" />
-              </div>
+        {/* Visual & Pedagogical Overview Column (lg:col-span-4) */}
+        <div className="lg:col-span-4 p-5 sm:p-6 bg-beige-50/75 dark:bg-forest-900/70 border-b lg:border-b-0 lg:border-r rtl:lg:border-r-0 rtl:lg:border-l border-beige-200 dark:border-forest-800 flex flex-col gap-3.5">
+          <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-beige-100 dark:bg-forest-800 shadow-soft">
+            <img
+              src={area.image}
+              alt={area.title}
+              className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-[1.03]"
+            />
+            <div className="absolute top-3 left-3 rtl:left-auto rtl:right-3 p-2 rounded-xl bg-white/92 dark:bg-forest-900/92 backdrop-blur-md shadow-soft border border-beige-200 dark:border-forest-700">
+              <IconComponent className="w-5 h-5 text-terracotta" />
             </div>
-
-            <div className="lg:hidden">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-forest-600 dark:text-sage-300">
-                Curriculum Pillar
-              </span>
-              <h3 className="font-serif text-xl font-bold text-forest-900 dark:text-cream mt-0.5">
-                {area.title}
-              </h3>
-            </div>
-
-            {area.quote && (
-              <blockquote className="p-3.5 rounded-2xl bg-white dark:bg-forest-800/70 border-l-4 rtl:border-l-0 rtl:border-r-4 border-terracotta text-xs italic text-forest-800 dark:text-beige-100">
-                "{area.quote}"
-              </blockquote>
-            )}
           </div>
 
-          <div className="hidden lg:flex items-center justify-between pt-3 border-t border-beige-200/80 dark:border-forest-800 text-[11px] text-forest-600 dark:text-beige-300/80 font-medium">
+          <div className="lg:hidden">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-forest-600 dark:text-sage-300">
+              Curriculum Pillar
+            </span>
+            <h3 className="font-serif text-xl font-bold text-forest-900 dark:text-cream mt-0.5">
+              {area.title}
+            </h3>
+          </div>
+
+          {area.quote && (
+            <blockquote className="p-3.5 rounded-2xl bg-white dark:bg-forest-800/70 border-l-4 rtl:border-l-0 rtl:border-r-4 border-terracotta text-xs italic text-forest-800 dark:text-beige-100 shadow-sm">
+              &ldquo;{area.quote}&rdquo;
+            </blockquote>
+          )}
+
+          {/* Area-Specific Montessori Learning Principles */}
+          <div className="p-4 rounded-2xl bg-white dark:bg-forest-950/55 border border-beige-200/90 dark:border-forest-700/80 shadow-sm">
+            <h4 className="text-[11px] font-bold uppercase tracking-wider text-forest-800 dark:text-sage-200 flex items-center gap-1.5 mb-2.5">
+              <Compass className="w-3.5 h-3.5 text-forest-700 dark:text-sage-300 flex-shrink-0" />
+              <span>Montessori Learning Principles</span>
+            </h4>
+            <ul className="space-y-1.5">
+              {area.principles.map((principle) => (
+                <li
+                  key={principle}
+                  className="flex items-start gap-2 text-[11.5px] text-forest-700 dark:text-beige-200 leading-snug"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-sage-600 dark:bg-sage-400 mt-1.5 flex-shrink-0" />
+                  <span>{principle}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Prepared Environment & Guide's Role Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5">
+            <div className="p-3.5 rounded-2xl bg-cream/90 dark:bg-forest-900 border border-beige-200/90 dark:border-forest-700/80 shadow-sm">
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-forest-800 dark:text-sage-200 flex items-center gap-1.5 mb-1">
+                <Layers className="w-3.5 h-3.5 text-terracotta flex-shrink-0" />
+                <span>Classroom Environment</span>
+              </h4>
+              <p className="text-[11.5px] text-forest-700 dark:text-beige-200/90 leading-snug">
+                {area.environmentNote}
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-2xl bg-cream/90 dark:bg-forest-900 border border-beige-200/90 dark:border-forest-700/80 shadow-sm">
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-forest-800 dark:text-sage-200 flex items-center gap-1.5 mb-1">
+                <HeartHandshake className="w-3.5 h-3.5 text-forest-700 dark:text-sage-300 flex-shrink-0" />
+                <span>Teacher&apos;s Role</span>
+              </h4>
+              <p className="text-[11.5px] text-forest-700 dark:text-beige-200/90 leading-snug">
+                {area.teacherRoleNote}
+              </p>
+            </div>
+          </div>
+
+          {/* Compact Learning Benefits / Outcomes Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            {area.outcomes.map((outcome) => (
+              <div
+                key={outcome.title}
+                className="p-3 rounded-2xl bg-white dark:bg-forest-950/55 border border-beige-200/90 dark:border-forest-700/80 shadow-sm"
+              >
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Award className="w-3.5 h-3.5 text-terracotta flex-shrink-0" />
+                  <h5 className="font-serif font-bold text-xs text-forest-900 dark:text-cream leading-tight">
+                    {outcome.title}
+                  </h5>
+                </div>
+                <p className="text-[11px] text-forest-600 dark:text-beige-200/85 leading-snug">
+                  {outcome.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="hidden lg:flex items-center justify-between pt-3 mt-auto border-t border-beige-200/80 dark:border-forest-800 text-[11px] text-forest-600 dark:text-beige-300/80 font-medium">
             <span>Montessori Area</span>
             <span>Ages 18m – 9y</span>
           </div>

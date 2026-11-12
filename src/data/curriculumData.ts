@@ -7,6 +7,13 @@ export interface CurriculumArea {
   colorTheme: string;
   explanation: string;
   quote: string;
+  principles: string[];
+  environmentNote: string;
+  teacherRoleNote: string;
+  outcomes: {
+    title: string;
+    description: string;
+  }[];
   learningObjectives: string[];
   exampleActivities: {
     name: string;
@@ -21,10 +28,21 @@ export const curriculumAreas: CurriculumArea[] = [
     title: 'Practical Life',
     subtitle: 'Nurturing self-reliance, concentration, coordination, and community care',
     iconName: 'Sparkles',
-    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&crop=entropy&q=80&w=1184&h=640',
     colorTheme: 'sage',
     explanation: 'Practical Life activities form the foundational cornerstone of all Montessori learning. Through purposeful, everyday physical actions—such as pouring liquids, polishing brass, preparing fruits, and dressing—children master fine motor dexterity, internalize physical sequence, and develop a calm, sustained power of concentration.',
     quote: 'The child can only develop fully through means of experience on his environment. We call such experience "work". — Dr. Maria Montessori',
+    principles: [
+      'Real, breakable tools teach mindful grace and responsibility',
+      'Repetitive physical sequences anchor deep calm and focus',
+      'Self-correcting feedback encourages autonomous problem-solving'
+    ],
+    environmentNote: 'Low wooden trays arranged with authentic ceramic pitchers, brass polishers, and child-sized culinary stations.',
+    teacherRoleNote: 'Demonstrate slow, silent hand movements once, then step back cleanly to honor independent mastery.',
+    outcomes: [
+      { title: 'Motor Precision', description: 'Strengthens hand-eye coordination ahead of writing.' },
+      { title: 'Daily Independence', description: 'Builds lasting confidence in caring for self and space.' }
+    ],
     learningObjectives: [
       'Refine bilateral hand coordination, pincer grasp, and spatial awareness',
       'Lengthen the duration of focused, self-initiated concentration',
@@ -60,10 +78,21 @@ export const curriculumAreas: CurriculumArea[] = [
     title: 'Sensorial Education',
     subtitle: 'Refining the senses to categorize and perceive subtle nuances of the physical universe',
     iconName: 'Eye',
-    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&crop=entropy&q=80&w=1184&h=640',
     colorTheme: 'terracotta',
     explanation: 'Sensorial materials are materialized abstractions. Each apparatus isolates a single physical quality—such as dimension, color, weight, texture, sound, or scent—allowing the young mind to explore, grade, match, and categorize sensory input with scientific precision.',
     quote: 'Our sensorial materials provide a kind of guide to observation; they clarify what the child has previously seen in the world. — Dr. Maria Montessori',
+    principles: [
+      'Isolation of a single quality sharpens perceptual discrimination',
+      'Graduated ten-unit sequences introduce intuitive geometry',
+      'Matching and grading exercises refine observational memory'
+    ],
+    environmentNote: 'Sunlit hardwood shelves holding Pink Tower cubes, Sound Cylinders, Thermic tablets, and chromatic Silk Color Boxes.',
+    teacherRoleNote: 'Observe when a child distinguishes fine contrasts and introduce exact three-period comparative vocabulary.',
+    outcomes: [
+      { title: 'Pattern Clarity', description: 'Translates tactile dimensions into logical categorization.' },
+      { title: 'Focused Perception', description: 'Sharpens visual, auditory, and stereognostic awareness.' }
+    ],
     learningObjectives: [
       'Isolate and categorize specific sensory stimuli (visual dimension, pitch, tactile texture, thermic temperature)',
       'Acquire sophisticated descriptive vocabulary (comparative and superlative adjectives: thickest, narrowest, warmest)',
@@ -98,10 +127,21 @@ export const curriculumAreas: CurriculumArea[] = [
     title: 'Language Development',
     subtitle: 'From joyful phonemic sounds to expressive creative writing and deep literary analysis',
     iconName: 'BookOpen',
-    image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&crop=entropy&q=80&w=1184&h=640',
     colorTheme: 'forest',
     explanation: 'In our Montessori Pod, language is treated as a living human marvel. We bridge spoken expression, phonetic awareness, tactile sandpaper letters, and the famous Moveable Alphabet. Because writing precedes reading in Montessori, children compose their own creative thoughts before effortlessly reading the thoughts of others.',
     quote: 'To read without thinking is like eating without digesting. Language is the instrument of human communion. — Dr. Maria Montessori',
+    principles: [
+      'Tactile cursive tracing unites touch, sound, and visual form',
+      'Spontaneous phonetic encoding precedes abstract decoding',
+      'Expressive storytelling flourishes through peer book dialogues'
+    ],
+    environmentNote: 'Organized Sandpaper Letter cabinets, Moveable Alphabets, metal insets, and cozy reading nooks with living literature.',
+    teacherRoleNote: 'Track phonetic readiness closely, introducing three-sound cards and grammar symbols at each child’s natural burst.',
+    outcomes: [
+      { title: 'Joyful Fluency', description: 'Transforms early sound play into expressive writing.' },
+      { title: 'Articulate Voice', description: 'Builds confidence in conversation, narration, and debate.' }
+    ],
     learningObjectives: [
       'Master phonemic segmentation (identifying beginning, middle, and ending sounds)',
       'Develop muscular memory for handwriting via textured Sandpaper Letters',
@@ -137,10 +177,21 @@ export const curriculumAreas: CurriculumArea[] = [
     title: 'Mathematics',
     subtitle: 'Discovering numerical order through tactile bead hierarchies and joyful mathematical proof',
     iconName: 'Binary',
-    image: 'https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&crop=entropy&q=80&w=1184&h=640',
     colorTheme: 'terracotta',
     explanation: 'Montessori math begins with concrete physical materials that make abstract numbers tangible. Children hold a single unit bead in one hand and a thousand cube of 1,000 beads in the other, feeling the literal weight of decimal orders of magnitude. Addition, subtraction, multiplication, and long division become tactile discoveries rather than rote memorization.',
     quote: 'The hands are the instruments of man’s intelligence. What the hand does, the mind remembers. — Dr. Maria Montessori',
+    principles: [
+      'Concrete bead manipulation precedes symbolic mental calculation',
+      'Visual place-value exchange demystifies decimal hierarchies',
+      'Self-checking wooden controls turn errors into curiosity'
+    ],
+    environmentNote: 'Dedicated math rugs stocked with Golden Beads, Stamp Game boxes, Strip Boards, and enameled Fraction Insets.',
+    teacherRoleNote: 'Guide discovery from physical quantity to symbolic cards without rushing passage toward abstraction.',
+    outcomes: [
+      { title: 'Number Sense', description: 'Anchors intuitive understanding of units through thousands.' },
+      { title: 'Analytical Ease', description: 'Cultivates joyful confidence in multi-step proofs.' }
+    ],
     learningObjectives: [
       'Develop deep mental clarity on decimal place value (Units, Tens, Hundreds, Thousands)',
       'Conduct multi-digit arithmetic operations with tangible materials',
@@ -175,10 +226,21 @@ export const curriculumAreas: CurriculumArea[] = [
     title: 'Cultural Studies (Geography & History)',
     subtitle: 'Cultivating global empathy, planetary wonder, and deep respect for human diversity',
     iconName: 'Globe',
-    image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&crop=entropy&q=80&w=1184&h=640',
     colorTheme: 'sage',
     explanation: 'Cultural studies unite physical geography, political geography, human anthropology, and history. Children study the continents not as abstract outlines on paper, but through tactile wooden puzzle maps, authentic artifacts, global folk music, traditional culinary recipes, and stories of human ingenuity across epochs.',
     quote: 'We must help the child to realize that he is part of a great harmony, connected to all living creatures. — Dr. Maria Montessori',
+    principles: [
+      'Cosmic perspective links geological epochs with human culture',
+      'Tactile puzzle maps invite spatial inquiry before memorization',
+      'Authentic artifacts foster sincere global curiosity and respect'
+    ],
+    environmentNote: 'Wooden continent map cabinets, clay land-water trays, fossil displays, and rotating cultural baskets.',
+    teacherRoleNote: 'Spark wonder through impressionistic Great Lesson stories and collaborative student research projects.',
+    outcomes: [
+      { title: 'Global Empathy', description: 'Nurtures respect for diverse cultures and shared humanity.' },
+      { title: 'Cosmic Inquiry', description: 'Connects history, geography, and biology seamlessly.' }
+    ],
     learningObjectives: [
       'Locate continents, oceans, biomes, and countries on globe and puzzle maps',
       'Appreciate diverse cultures, indigenous traditions, languages, and celebrations',
@@ -213,10 +275,21 @@ export const curriculumAreas: CurriculumArea[] = [
     title: 'Arts and Creativity',
     subtitle: 'Expressing authentic inner imagination through fine art media, sculpture, and musical harmony',
     iconName: 'Palette',
-    image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&crop=entropy&q=80&w=1184&h=640',
     colorTheme: 'terracotta',
     explanation: 'Art in our learning pod is process-oriented rather than product-driven. Instead of following rigid templates, children are taught how to master real artistic tools—natural pigments, watercolor wet-on-wet techniques, ceramic clay wheel work, weaving looms, and orchestral pitch. True creativity flourishes when children have technical command of their medium.',
     quote: 'The child who has free choice will express his deep personal aesthetic sensibility with unexpected clarity. — Dr. Maria Montessori',
+    principles: [
+      'Process-centered craft prioritizes personal expression over templates',
+      'Command of real tools liberates authentic artistic vision',
+      'Movement and pentatonic sound awaken natural musical phrasing'
+    ],
+    environmentNote: 'Open studio easels, earthenware potter tables, wool weaving looms, and tuned pentatonic chimes.',
+    teacherRoleNote: 'Model careful studio media technique once, then protect uninterrupted space for creative immersion.',
+    outcomes: [
+      { title: 'Creative Voice', description: 'Builds genuine pride in original composition and design.' },
+      { title: 'Aesthetic Focus', description: 'Refines visual rhythm, proportion, and fine manual control.' }
+    ],
     learningObjectives: [
       'Learn classical techniques: watercolor wash, oil pastel blending, terracotta sculpting, and textile weaving',
       'Develop sensory appreciation for color theory, contrast, negative space, and rhythm',
@@ -251,10 +324,21 @@ export const curriculumAreas: CurriculumArea[] = [
     title: 'Nature & Environmental Learning',
     subtitle: 'Immersing in living ecosystems through forest school, organic permaculture, and wildlife care',
     iconName: 'Sprout',
-    image: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&crop=entropy&q=80&w=1184&h=640',
     colorTheme: 'forest',
     explanation: 'The outdoors is not merely a playground; it is an outdoor classroom where children connect deeply with the natural world. Our Pod integrates a flourishing permaculture raised-bed garden, pollinator meadows, weather observation stations, and daily forest exploration. Children compost scraps, germinate heirloom seeds, harvest produce for snack time, and observe wildlife cycles firsthand.',
     quote: 'There must be provision for the child to have contact with nature; to understand and appreciate the order, the harmony and the beauty in nature. — Dr. Maria Montessori',
+    principles: [
+      'Direct botanical stewardship makes ecology tangible every day',
+      'Seasonal garden cycles nurture patient scientific observation',
+      'Outdoor inquiry calms the nervous system and deepens wonder'
+    ],
+    environmentNote: 'Raised cedar permaculture beds, worm compost stations, botanical leaf presses, and outdoor weather gauges.',
+    teacherRoleNote: 'Guide field journaling and seasonal harvests while honoring unhurried curiosity in outdoor spaces.',
+    outcomes: [
+      { title: 'Ecological Care', description: 'Instills lifelong habits of conservation and guardianship.' },
+      { title: 'Field Inquiry', description: 'Develops patient botanical observation and recording skills.' }
+    ],
     learningObjectives: [
       'Understand life cycles of plants, pollinators, and beneficial microorganisms',
       'Practice hands-on conservation: rain collection, vermicomposting, soil enrichment',

@@ -11,7 +11,6 @@ import {
   CheckCircle2,
   AlertCircle,
   Shield,
-  Camera,
   Heart
 } from 'lucide-react';
 
@@ -22,7 +21,6 @@ export const SettingsPage: React.FC = () => {
   const [parentName, setParentName] = useState(user?.name || 'Sarah Jenkins');
   const [email, setEmail] = useState(user?.email || 'parent@example.com');
   const [phone, setPhone] = useState(user?.phone || '+1 (555) 724-8190');
-  const [avatar, setAvatar] = useState(user?.avatar || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300');
 
   // Child details state
   const [childName, setChildName] = useState(childProfile.name || 'Oliver Jenkins');
@@ -46,15 +44,6 @@ export const SettingsPage: React.FC = () => {
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [validationError, setValidationError] = useState('');
 
-  // Curated avatar options
-  const avatarOptions = [
-    'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300',
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300',
-    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300',
-    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300',
-    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300'
-  ];
-
   const handleProfileSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError('');
@@ -73,7 +62,6 @@ export const SettingsPage: React.FC = () => {
         name: parentName,
         email,
         phone,
-        avatar,
         emergencyContact,
         dietaryNotes,
         notificationPreferences: {
@@ -166,44 +154,13 @@ export const SettingsPage: React.FC = () => {
       {/* 2. Main Profile Form */}
       <form onSubmit={handleProfileSave} className="space-y-8">
         
-        {/* Parent Personal Info & Avatar */}
+        {/* Parent Personal Info */}
         <div className="bg-white rounded-4xl p-6 sm:p-8 border border-beige-300 shadow-soft space-y-6">
           <div className="flex items-center gap-2 mb-2">
             <User className="w-5 h-5 text-forest-600" />
             <h2 className="font-serif text-xl font-bold text-forest-900">
               Parent / Guardian Information
             </h2>
-          </div>
-
-          {/* Avatar Selector */}
-          <div>
-            <label className="block text-xs font-bold text-forest-800 mb-2">
-              Profile Avatar
-            </label>
-            <div className="flex flex-wrap items-center gap-3">
-              <img
-                src={avatar}
-                alt="Selected avatar"
-                className="w-16 h-16 rounded-2xl object-contain object-center bg-beige-100 dark:bg-forest-800 border-2 border-forest-600 shadow-sm"
-              />
-              <div className="space-y-1">
-                <span className="text-xs text-forest-600 block">Choose from curated parent avatars:</span>
-                <div className="flex items-center gap-2">
-                  {avatarOptions.map((opt, i) => (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => setAvatar(opt)}
-                      className={`w-9 h-9 rounded-xl overflow-hidden border-2 bg-beige-100 dark:bg-forest-800 transition-transform ${
-                        avatar === opt ? 'border-forest-600 scale-110 shadow-sm' : 'border-beige-200 opacity-70 hover:opacity-100'
-                      }`}
-                    >
-                      <img src={opt} alt="Avatar option" className="w-full h-full object-contain object-center" />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

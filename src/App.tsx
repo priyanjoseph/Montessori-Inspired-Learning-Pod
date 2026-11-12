@@ -21,6 +21,7 @@ import { TuitionPage } from './pages/TuitionPage';
 import { NotificationsPage } from './pages/NotificationsPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 export const App: React.FC = () => {
   return (
@@ -74,8 +75,8 @@ export const App: React.FC = () => {
             <Route path=":section" element={<AdminDashboardPage />} />
           </Route>
 
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* Standalone Custom 404 Catch-All Route (no Navbar, Footer, or Navigation Buttons) */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </SettingsProvider>

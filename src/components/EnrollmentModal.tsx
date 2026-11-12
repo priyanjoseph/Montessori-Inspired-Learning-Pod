@@ -76,7 +76,7 @@ export const EnrollmentModal: React.FC = () => {
                 <span>Admissions 2026–2027</span>
               </div>
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-forest-900 dark:text-cream">
-                Enroll in Montessori Learning Pod
+                Enroll in Montessori Pod
               </h2>
               <p className="text-forest-700 dark:text-beige-200 text-xs md:text-sm mt-1">
                 Begin your family’s journey into an intentional, respectful educational community.

@@ -122,7 +122,7 @@ function createStarterChildForParent(db, { userId, parentName, childName, childA
   `).run(
     `notif-${crypto.randomUUID().slice(0, 8)}`,
     userId,
-    'Welcome to the Montessori Learning Pod Portal',
+    'Welcome to the Montessori Pod Portal',
     `Your parent account has been connected. Explore your child's overview, daily logs, and admissions schedule.`,
     now
   );
@@ -160,10 +160,9 @@ function linkOrCreateOAuthParent(db, { provider, providerId, email, name, avatar
     db.prepare(`
       UPDATE users
       SET provider = CASE WHEN provider = 'local' THEN ? ELSE provider END,
-          provider_id = CASE WHEN provider_id = '' THEN ? ELSE provider_id END,
-          avatar = CASE WHEN avatar = '' THEN ? ELSE avatar END
+          provider_id = CASE WHEN provider_id = '' THEN ? ELSE provider_id END
       WHERE id = ?
-    `).run(provider, providerId, avatar || '', user.id);
+    `).run(provider, providerId, user.id);
     return db.prepare('SELECT * FROM users WHERE id = ?').get(user.id);
   }
 
@@ -171,12 +170,11 @@ function linkOrCreateOAuthParent(db, { provider, providerId, email, name, avatar
   const newUserId = `user-${crypto.randomUUID().slice(0, 10)}`;
   db.prepare(`
     INSERT INTO users (id, name, email, phone, password_hash, role, avatar, provider, provider_id, emergency_contact, dietary_notes, notification_preferences, created_at)
-    VALUES (?, ?, ?, '', NULL, 'parent', ?, ?, ?, '', '', ?, ?)
+    VALUES (?, ?, ?, '', NULL, 'parent', '', ?, ?, '', '', ?, ?)
   `).run(
     newUserId,
     name || normalizedEmail.split('@')[0],
     normalizedEmail,
-    avatar || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300',
     provider,
     providerId,
     JSON.stringify({ emailAlerts: true, dailyDigest: true, urgentSms: false, photoTagging: true }),

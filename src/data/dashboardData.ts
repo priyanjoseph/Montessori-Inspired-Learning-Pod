@@ -11,7 +11,6 @@ export interface DailyLogItem {
   skillsDeveloped: string[];
   materialsUsed: string;
   guideName: string;
-  guideAvatar: string;
   comments?: {
     id: string;
     authorName: string;
@@ -29,7 +28,6 @@ export interface TeacherReportItem {
   teacherName: string;
   teacherRole: string;
   teacherCredentials: string;
-  teacherAvatar: string;
   overallProgress: string;
   progressGrade: 'Exceeding Expectations' | 'Strong Consistent Growth' | 'Developing Steadily';
   strengths: string[];
@@ -80,7 +78,6 @@ export interface NotificationItem {
 
 export interface ChildProfileData {
   name: string;
-  photo: string;
   age: string;
   birthDate: string;
   program: string;
@@ -128,8 +125,7 @@ export const initialDailyLogs: DailyLogItem[] = [
     childParticipation: 'Independent Focus',
     skillsDeveloped: ['Decimal Place Value (1–9,999)', 'Concrete Arithmetic', 'Bilateral Hand Coordination', 'Self-Verification'],
     materialsUsed: 'Montessori Golden Bead Material, Decimal Number Cards, Green Felt Mat',
-    guideName: 'Amina Al-Khatib',
-    guideAvatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=256'
+    guideName: 'Amina Al-Khatib'
   },
   {
     id: 'log-2',
@@ -143,8 +139,7 @@ export const initialDailyLogs: DailyLogItem[] = [
     childParticipation: 'Independent Focus',
     skillsDeveloped: ['Visual Discrimination of Hue & Value', 'Orderly Sequencing', 'Aesthetic Sensitivity', 'Pincer Grasp Control'],
     materialsUsed: 'Montessori Color Box III (Lacquered Birch & Silk Threads)',
-    guideName: 'Mateo Rossi',
-    guideAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=256'
+    guideName: 'Mateo Rossi'
   },
   {
     id: 'log-3',
@@ -158,8 +153,7 @@ export const initialDailyLogs: DailyLogItem[] = [
     childParticipation: 'Collaborative Mentorship',
     skillsDeveloped: ['Ecological Stewardship', 'Measurement & Volume', 'Botanical Life Cycles', 'Empathetic Peer Tutoring'],
     materialsUsed: 'Organic Soil, Peat Pots, Miniature Trowels, Rainwater Pitcher',
-    guideName: 'Sora Tanaka',
-    guideAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256'
+    guideName: 'Sora Tanaka'
   },
   {
     id: 'log-4',
@@ -173,8 +167,7 @@ export const initialDailyLogs: DailyLogItem[] = [
     childParticipation: 'Creative Mastery',
     skillsDeveloped: ['Phonemic Awareness', 'Muscle Memory for Cursive Script', 'Word Synthesis', 'Auditory-Visual Integration'],
     materialsUsed: 'Cursive Sandpaper Letters, Moveable Alphabet Wooden Box',
-    guideName: 'Amina Al-Khatib',
-    guideAvatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=256'
+    guideName: 'Amina Al-Khatib'
   },
   {
     id: 'log-5',
@@ -188,8 +181,7 @@ export const initialDailyLogs: DailyLogItem[] = [
     childParticipation: 'Independent Focus',
     skillsDeveloped: ['Grace & Courtesy', 'Fine Motor Dexterity', 'Sequential Order (4-Step Restorations)', 'Community Care'],
     materialsUsed: 'Hand-thrown Porcelain Basin, Organic Citrus, Wavy Slicer, Bamboo Tray',
-    guideName: 'Mateo Rossi',
-    guideAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=256'
+    guideName: 'Mateo Rossi'
   },
   {
     id: 'log-6',
@@ -203,8 +195,7 @@ export const initialDailyLogs: DailyLogItem[] = [
     childParticipation: 'Collaborative Mentorship',
     skillsDeveloped: ['Global Geography', 'Spatial Reasoning', 'Fine Motor Knob Grip', 'Collaborative Problem-Solving'],
     materialsUsed: 'Wooden Africa Continent Map, Wildlife Replicas, Felt Biome Mat',
-    guideName: 'Julian Montgomery',
-    guideAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=256'
+    guideName: 'Julian Montgomery'
   }
 ];
 
@@ -220,7 +211,6 @@ export const initialTeacherReports: TeacherReportItem[] = [
     teacherName: 'Amina Al-Khatib',
     teacherRole: 'Lead Guide – Primary Community (Casa dei Bambini II)',
     teacherCredentials: 'AMS Early Childhood Credential, M.Ed. Montessori Education',
-    teacherAvatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=256',
     overallProgress: 'Oliver has demonstrated remarkable cognitive stamina, authentic independence, and compassionate social poise throughout the Fall Term. His concentration periods now regularly exceed 45 minutes.',
     progressGrade: 'Exceeding Expectations',
     strengths: [
@@ -261,7 +251,6 @@ export const initialTeacherReports: TeacherReportItem[] = [
     teacherName: 'Mateo Rossi',
     teacherRole: 'Co-Lead Guide & Toddler-to-Primary Transition Specialist',
     teacherCredentials: 'AMI Certified (0–3 & 3–6), RIE Certified Educator',
-    teacherAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=256',
     overallProgress: 'Oliver completed a seamless transition from the Toddler Community into the full 3–6 Casa environment, displaying eagerness to explore concrete mathematical apparatus.',
     progressGrade: 'Strong Consistent Growth',
     strengths: [
@@ -415,7 +404,6 @@ export const initialNotifications: NotificationItem[] = [
    ========================================================= */
 export const initialChildProfile: ChildProfileData = {
   name: 'Oliver Jenkins',
-  photo: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=600',
   age: '4 Years, 6 Months',
   birthDate: 'May 12, 2022',
   program: 'Primary Program (Casa dei Bambini)',

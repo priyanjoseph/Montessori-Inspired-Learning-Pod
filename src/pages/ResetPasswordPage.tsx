@@ -106,7 +106,7 @@ export const ResetPasswordPage: React.FC = () => {
           </div>
           <div>
             <span className="font-serif font-bold text-lg text-forest-900 dark:text-cream block leading-none">
-              Montessori Learning Pod
+              Montessori Pod
             </span>
             <span className="text-[11px] text-forest-600 dark:text-sage-300 font-semibold uppercase tracking-wider">
               Set New Password
@@ -155,7 +155,7 @@ export const ResetPasswordPage: React.FC = () => {
               Reset Password
             </h1>
             <p className="text-xs sm:text-sm text-forest-700 dark:text-beige-200 mt-1.5 mb-6">
-              Choose a strong new password for your Montessori Learning Pod account.
+              Choose a strong new password for your Montessori Pod account.
             </p>
 
             {error && (

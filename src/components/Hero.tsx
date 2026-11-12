@@ -28,10 +28,10 @@ export const Hero: React.FC = () => {
   const { openTourModal } = useSettings();
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-64px)] lg:min-h-[640px] xl:min-h-[720px] flex items-center overflow-hidden bg-cream dark:bg-forest-950">
+    <section className="relative w-full min-h-0 sm:min-h-[calc(100vh-64px)] lg:min-h-[640px] xl:min-h-[720px] flex items-start sm:items-center overflow-hidden bg-cream dark:bg-forest-950">
       {/* Full-width photographic background */}
       <img
-        src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=85&w=1920"
+        src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&crop=entropy&q=85&w=1920&h=960"
         alt="Children exploring a serene natural Montessori outdoor learning environment"
         className="absolute inset-0 w-full h-full object-cover object-center md:object-[72%_center] rtl:md:object-[28%_center] select-none"
       />
@@ -47,7 +47,7 @@ export const Hero: React.FC = () => {
       />
 
       {/* Hero Foreground Content (Left-Aligned) */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 sm:py-16 lg:py-20 w-full">
         <div className="max-w-4xl text-left rtl:text-right">
           {/* Introductory Badge */}
           <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-white/85 dark:bg-forest-900/85 backdrop-blur-sm border border-sage-300/80 dark:border-forest-700 shadow-sm text-[11px] sm:text-xs font-semibold text-forest-800 dark:text-sage-200 mb-6 animate-fadeIn whitespace-nowrap">
@@ -69,7 +69,7 @@ export const Hero: React.FC = () => {
 
           {/* Controlled-Width Description */}
           <p className="text-base sm:text-lg text-forest-700 dark:text-beige-200/95 leading-relaxed max-w-xl font-sans">
-            Discover a nurturing Montessori-inspired learning environment where children explore, create, develop independence, and learn at their own pace.
+            Discover Montessori Pod, a nurturing learning environment where children explore, create, develop independence, and learn at their own pace.
           </p>
 
           {/* Horizontal Call-to-Action Buttons */}

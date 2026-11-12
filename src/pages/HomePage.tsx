@@ -182,9 +182,9 @@ export const HomePage: React.FC = () => {
                 <div className="lg:col-span-6">
                   <div className="relative rounded-3xl overflow-hidden shadow-soft-xl border-4 border-white dark:border-forest-800 bg-beige-100 dark:bg-forest-800">
                     <img
-                      src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=1000"
+                      src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&crop=entropy&q=80&w=1160&h=840"
                       alt="Child discovering wooden sensorial materials"
-                      className="w-full h-[420px] object-contain object-center"
+                      className="w-full h-[250px] sm:h-[360px] lg:h-[420px] object-contain object-center"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-forest-950/75 via-transparent to-transparent flex items-end p-6">
                       <div className="text-white">
@@ -239,7 +239,7 @@ export const HomePage: React.FC = () => {
                     <tr className="border-b border-beige-300 dark:border-forest-700 bg-beige-100/70 dark:bg-forest-900">
                       <th className="p-4 font-serif font-bold text-forest-900 dark:text-cream">Learning Dimension</th>
                       <th className="p-4 font-serif font-bold text-forest-900 dark:text-sage-200 bg-sage-100/60 dark:bg-forest-800/80">
-                        Montessori Learning Pod
+                        Montessori Pod
                       </th>
                       <th className="p-4 font-serif font-bold text-softbrown-500 dark:text-beige-300">
                         Conventional Schooling

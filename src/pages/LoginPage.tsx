@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   AlertCircle,
   ArrowLeft,
   ArrowRight,
-  CheckCircle2,
   Eye,
   EyeOff,
-  GraduationCap,
   Info,
   Lock,
   Mail,
-  ShieldCheck,
   Sprout,
   User,
-  UserCheck,
   UserPlus,
 } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
@@ -23,7 +19,6 @@ import { ThemeToggle } from '../components/ThemeToggle';
 import { apiRequest } from '../lib/api';
 
 type AuthTab = 'signin' | 'register';
-type RegistrationRole = 'parent' | 'teacher';
 
 interface LoginPageProps {
   initialTab?: AuthTab;
@@ -81,7 +76,7 @@ const FacebookIcon: React.FC = () => (
 );
 
 export const LoginPage: React.FC<LoginPageProps> = ({ initialTab = 'signin' }) => {
-  const { user, authLoading, login, register } = useSettings();
+  const { login, register } = useSettings();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -103,12 +98,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ initialTab = 'signin' }) =
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showRegPassword, setShowRegPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [userRole, setUserRole] = useState<RegistrationRole>('parent');
 
   // Shared feedback state
   const [error, setError] = useState('');
   const [oauthNotice, setOauthNotice] = useState('');
-  const [regSuccessNotice, setRegSuccessNotice] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [providers, setProviders] = useState<{
     google: { configured: boolean };
@@ -135,15 +128,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ initialTab = 'signin' }) =
       .catch(() => {});
   }, [searchParams]);
 
-  if (!authLoading && user) {
-    return <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} replace />;
-  }
-
   const switchTab = (nextTab: AuthTab) => {
     setActiveTab(nextTab);
     setError('');
     setOauthNotice('');
-    setRegSuccessNotice('');
   };
 
   const passwordRules = [
@@ -155,6 +143,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ initialTab = 'signin' }) =
 
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isLoading) return;
     setError('');
     setOauthNotice('');
 
@@ -180,9 +169,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ initialTab = 'signin' }) =
 
   const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isLoading) return;
     setError('');
     setOauthNotice('');
-    setRegSuccessNotice('');
 
     if (fullName.trim().length < 2) {
       setError('Please enter your full name (at least 2 characters).');
@@ -203,28 +192,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ initialTab = 'signin' }) =
 
     setIsLoading(true);
     try {
-      const result = await register({
+      const res = await register({
         name: fullName.trim(),
         email: regEmail.trim(),
         password: regPassword,
         confirmPassword,
-        requestedRole: userRole,
         agreeToTerms: true,
       });
 
-      if (result.pendingApproval) {
-        setRegSuccessNotice(
-          result.message ||
-            'Your Teacher account request has been submitted for Campus Administrator approval.'
-        );
-        setFullName('');
-        setRegEmail('');
-        setRegPassword('');
-        setConfirmPassword('');
-        return;
-      }
-
-      navigate('/dashboard', { replace: true });
+      navigate(res.user?.role === 'admin' ? '/admin' : '/dashboard', { replace: true });
     } catch (err: any) {
       setError(err?.message || 'Registration failed. Please check your details and try again.');
     } finally {
@@ -257,14 +233,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({ initialTab = 'signin' }) =
           <Link
             to="/"
             className="inline-flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-forest-400 rounded-2xl px-1 py-0.5"
-            aria-label="Montessori Learning Pod Homepage"
+            aria-label="Montessori Pod Homepage"
           >
             <div className="w-11 h-11 rounded-2xl bg-forest-800 dark:bg-sage-500 text-cream dark:text-forest-950 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200 flex-shrink-0">
               <Sprout className="w-6 h-6" />
             </div>
             <div className="text-left rtl:text-right">
               <span className="font-serif font-bold text-xl sm:text-[22px] text-forest-950 dark:text-cream tracking-tight block leading-tight">
-                Montessori Learning Pod
+                Montessori Pod
               </span>
               <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-forest-600 dark:text-sage-300 mt-0.5 block">
                 Curiosity • Autonomy • Grace
@@ -333,29 +309,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ initialTab = 'signin' }) =
           </div>
         )}
 
-        {regSuccessNotice && (
-          <div
-            role="status"
-            className="mb-4 p-3.5 rounded-2xl bg-sage-100/80 dark:bg-forest-800 border border-sage-300 dark:border-forest-600 text-forest-900 dark:text-cream text-xs leading-relaxed flex items-start gap-2.5"
-          >
-            <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5 text-forest-700 dark:text-sage-300" />
-            <div className="space-y-1.5">
-              <p>{regSuccessNotice}</p>
-              <button
-                type="button"
-                onClick={() => switchTab('signin')}
-                className="font-bold text-forest-800 dark:text-sage-300 underline underline-offset-4"
-              >
-                Return to Sign In →
-              </button>
-            </div>
-          </div>
-        )}
-
         {/* TAB 1: SIGN IN FORM */}
         {activeTab === 'signin' ? (
           <div role="tabpanel" aria-labelledby="auth-tab-signin">
-            <form onSubmit={handleLoginSubmit} className="space-y-4">
+            <form onSubmit={handleLoginSubmit} noValidate className="space-y-4">
               {/* Email Address */}
               <div>
                 <label htmlFor="login-email" className={`${LABEL_BASE} mb-1.5`}>
@@ -495,7 +452,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ initialTab = 'signin' }) =
         ) : (
           /* TAB 2: CREATE ACCOUNT FORM */
           <div role="tabpanel" aria-labelledby="auth-tab-register">
-            <form onSubmit={handleRegisterSubmit} className="space-y-4">
+            <form onSubmit={handleRegisterSubmit} noValidate className="space-y-4">
               {/* Full Name */}
               <div>
                 <label htmlFor="reg-fullname" className={`${LABEL_BASE} mb-1.5`}>
@@ -615,63 +572,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ initialTab = 'signin' }) =
                     {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
-              </div>
-
-              {/* User Role (Parent / Teacher) */}
-              <div>
-                <span id="reg-role-label" className={`${LABEL_BASE} mb-1.5`}>
-                  User Role <span className="text-terracotta">*</span>
-                </span>
-                <div
-                  role="radiogroup"
-                  aria-labelledby="reg-role-label"
-                  className="grid grid-cols-2 gap-3"
-                >
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked={userRole === 'parent'}
-                    onClick={() => {
-                      setUserRole('parent');
-                      setError('');
-                    }}
-                    className={`h-11 px-3 rounded-2xl border text-xs sm:text-[13px] font-semibold flex items-center justify-center gap-2 transition-all ${
-                      userRole === 'parent'
-                        ? 'bg-sage-100/90 dark:bg-forest-800 border-forest-700 dark:border-sage-400 text-forest-950 dark:text-cream shadow-sm'
-                        : 'bg-white dark:bg-forest-950/60 border-beige-300/90 dark:border-forest-700 text-forest-700 dark:text-beige-200 hover:bg-beige-50 dark:hover:bg-forest-800/60'
-                    }`}
-                  >
-                    <UserCheck className="w-4 h-4 flex-shrink-0" />
-                    <span>Parent</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked={userRole === 'teacher'}
-                    onClick={() => {
-                      setUserRole('teacher');
-                      setError('');
-                    }}
-                    className={`h-11 px-3 rounded-2xl border text-xs sm:text-[13px] font-semibold flex items-center justify-center gap-2 transition-all ${
-                      userRole === 'teacher'
-                        ? 'bg-sage-100/90 dark:bg-forest-800 border-forest-700 dark:border-sage-400 text-forest-950 dark:text-cream shadow-sm'
-                        : 'bg-white dark:bg-forest-950/60 border-beige-300/90 dark:border-forest-700 text-forest-700 dark:text-beige-200 hover:bg-beige-50 dark:hover:bg-forest-800/60'
-                    }`}
-                  >
-                    <GraduationCap className="w-4 h-4 flex-shrink-0" />
-                    <span>Teacher</span>
-                  </button>
-                </div>
-
-                <p className="mt-2 flex items-start gap-1.5 text-[11px] text-forest-700/85 dark:text-beige-300/85 leading-snug">
-                  <ShieldCheck className="w-3.5 h-3.5 text-forest-600 dark:text-sage-400 flex-shrink-0 mt-0.5" />
-                  <span>
-                    {userRole === 'parent'
-                      ? 'Parent accounts activate instant Parent Portal access (/dashboard).'
-                      : 'Per campus role permissions, Teacher & Guide accounts (/admin) require Administrator verification before activation.'}
-                  </span>
-                </p>
               </div>
 
               {/* Create Account Submit Button */}

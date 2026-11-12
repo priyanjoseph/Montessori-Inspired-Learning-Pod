@@ -10,14 +10,12 @@ import {
   FileText,
   Globe,
   GraduationCap,
-  Home,
   LayoutDashboard,
   LogOut,
   Megaphone,
   Menu,
   NotebookPen,
   Settings,
-  Shield,
   Sprout,
   UserCheck,
   Users,
@@ -151,7 +149,7 @@ export const AdminLayout: React.FC = () => {
           </div>
           <div className="min-w-0">
             <span className="font-serif font-bold text-forest-900 dark:text-cream text-sm block truncate leading-tight">
-              Montessori Learning Pod
+              Montessori Pod
             </span>
             <span className="text-[10px] font-semibold uppercase tracking-widest text-forest-600 dark:text-sage-300 block leading-none mt-0.5">
               Admin Command Portal
@@ -160,10 +158,7 @@ export const AdminLayout: React.FC = () => {
         </div>
 
         {/* Admin Identity Card */}
-        <div className="mx-3.5 mt-4 p-3 rounded-2xl bg-sage-100/80 dark:bg-forest-800/80 border border-sage-200 dark:border-forest-700 flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-forest-700 text-cream flex items-center justify-center flex-shrink-0">
-            <Shield className="w-4 h-4" />
-          </div>
+        <div className="mx-3.5 mt-4 p-3 rounded-2xl bg-sage-100/80 dark:bg-forest-800/80 border border-sage-200 dark:border-forest-700">
           <div className="min-w-0">
             <p className="font-serif font-bold text-xs text-forest-900 dark:text-cream truncate">
               {user?.name || 'Administrator'}
@@ -181,14 +176,7 @@ export const AdminLayout: React.FC = () => {
           <SidebarNavLinks />
         </nav>
 
-        <div className="p-3.5 border-t border-beige-200 dark:border-forest-800 space-y-1.5">
-          <Link
-            to="/"
-            className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-forest-700 dark:text-beige-100 hover:bg-beige-100 dark:hover:bg-forest-800 transition-colors"
-          >
-            <Home className="w-4 h-4 text-forest-500 dark:text-sage-300" />
-            <span>Home</span>
-          </Link>
+        <div className="p-3.5 border-t border-beige-200 dark:border-forest-800">
           <button
             type="button"
             onClick={handleLogout}
@@ -228,15 +216,7 @@ export const AdminLayout: React.FC = () => {
               <SidebarNavLinks closeMobile />
             </nav>
 
-            <div className="p-3.5 border-t border-beige-200 dark:border-forest-800 space-y-1.5">
-              <Link
-                to="/"
-                onClick={() => setMobileSidebarOpen(false)}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-forest-700 dark:text-beige-100 hover:bg-beige-100"
-              >
-                <Home className="w-4 h-4" />
-                <span>Home</span>
-              </Link>
+            <div className="p-3.5 border-t border-beige-200 dark:border-forest-800">
               <button
                 type="button"
                 onClick={handleLogout}
@@ -253,34 +233,29 @@ export const AdminLayout: React.FC = () => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-16 bg-white/90 dark:bg-forest-900/90 backdrop-blur-md border-b border-beige-300 dark:border-forest-800 px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-30">
-          <div className="flex items-center gap-3 min-w-0">
+          <div className="flex items-center gap-3 min-w-0 flex-1 md:flex-initial">
             <button
               type="button"
               onClick={() => setMobileSidebarOpen(true)}
-              className="md:hidden p-2 rounded-xl bg-beige-100 dark:bg-forest-800 text-forest-800 dark:text-cream"
+              className="md:hidden p-2 rounded-xl bg-beige-100 dark:bg-forest-800 text-forest-800 dark:text-cream flex-shrink-0"
               aria-label="Open admin sidebar"
             >
               <Menu className="w-5 h-5" />
             </button>
-            <div className="min-w-0">
+            <span className="font-serif text-lg font-bold tracking-tight text-forest-900 dark:text-cream whitespace-nowrap truncate md:hidden">
+              Montessori Pod
+            </span>
+            <div className="hidden md:block min-w-0">
               <h1 className="font-serif font-bold text-base sm:text-xl text-forest-900 dark:text-cream truncate">
                 {getCurrentTitle()}
               </h1>
-              <span className="text-[11px] text-forest-600 dark:text-sage-300 hidden sm:inline">
-                Montessori Learning Pod • Role: Administrator ({isRtl ? 'RTL' : 'LTR'})
+              <span className="text-[11px] text-forest-600 dark:text-sage-300">
+                Montessori Pod • Role: Administrator ({isRtl ? 'RTL' : 'LTR'})
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-forest-800 dark:text-beige-100 hover:bg-beige-100 dark:hover:bg-forest-800 px-3 py-1.5 rounded-full border border-beige-300 dark:border-forest-700 transition-colors"
-            >
-              <Home className="w-3.5 h-3.5 text-forest-600 dark:text-sage-300" />
-              <span>Home</span>
-            </Link>
-
+          <div className="hidden md:flex items-center gap-2 sm:gap-3 flex-shrink-0">
             <DirectionToggle />
             <ThemeToggle compact />
 
@@ -288,10 +263,9 @@ export const AdminLayout: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setProfileDropdownOpen((prev) => !prev)}
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-cream-100 dark:bg-forest-800 border border-beige-300 dark:border-forest-700 text-xs font-semibold"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-cream-100 dark:bg-forest-800 border border-beige-300 dark:border-forest-700 text-xs font-semibold"
               >
-                <Shield className="w-3.5 h-3.5 text-forest-700 dark:text-sage-300" />
-                <span className="hidden sm:inline max-w-[140px] truncate">{user?.name || 'Admin'}</span>
+                <span className="max-w-[140px] truncate">{user?.name || 'Admin'}</span>
                 <ChevronDown className="w-3.5 h-3.5" />
               </button>
 

@@ -3,14 +3,6 @@ import path from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import { hashPassword } from './security.mjs';
 
-const DEFAULT_AVATARS = {
-  parent: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300',
-  parent2: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300',
-  admin: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400',
-  child1: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=600',
-  child2: 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&q=80&w=600',
-};
-
 let dbInstance = null;
 
 function buildDefaultLearningAreas() {
@@ -284,6 +276,10 @@ export async function getDb() {
   const countRow = db.prepare('SELECT COUNT(*) AS count FROM users').get();
   if (countRow.count === 0) {
     await seedInitialData(db);
+  } else {
+    db.prepare(
+      "UPDATE system_settings SET value = 'Montessori Pod' WHERE key = 'school_name' AND value = 'Montessori Learning Pod'"
+    ).run();
   }
 
   dbInstance = db;
@@ -308,7 +304,7 @@ async function seedInitialData(db) {
     '+1 (555) 724-8190',
     parentHash,
     'parent',
-    DEFAULT_AVATARS.parent,
+    '',
     'Marcus Jenkins (Father) - +1 (555) 392-1049',
     'Organic vegetarian preference; No peanut allergies.',
     JSON.stringify({ emailAlerts: true, dailyDigest: true, urgentSms: true, photoTagging: true }),
@@ -322,7 +318,7 @@ async function seedInitialData(db) {
     '+1 (555) 891-4022',
     parentHash,
     'parent',
-    DEFAULT_AVATARS.parent2,
+    '',
     'David Miller (Father) - +1 (555) 412-9012',
     'No allergies; dairy-free snack preference.',
     JSON.stringify({ emailAlerts: true, dailyDigest: true, urgentSms: false, photoTagging: true }),
@@ -336,7 +332,7 @@ async function seedInitialData(db) {
     '+1 (555) 382-7190',
     adminHash,
     'admin',
-    DEFAULT_AVATARS.admin,
+    '',
     'Campus Security & Office Desk - +1 (555) 382-7199',
     'Administrative account',
     JSON.stringify({ emailAlerts: true, dailyDigest: true, urgentSms: true, photoTagging: false }),
@@ -374,7 +370,7 @@ async function seedInitialData(db) {
     'Casa Studio II (East Garden Wing)',
     'September 1, 2025',
     'Amina Al-Khatib, AMS',
-    DEFAULT_AVATARS.child1,
+    '',
     JSON.stringify(oliverTeachers),
     JSON.stringify(oliverAttendance),
     JSON.stringify(buildDefaultLearningAreas()),
@@ -405,7 +401,7 @@ async function seedInitialData(db) {
     'Nido & Toddler Sunroom',
     'September 1, 2026',
     'Mateo Rossi, AMI',
-    DEFAULT_AVATARS.child2,
+    '',
     JSON.stringify(lucasTeachers),
     JSON.stringify(lucasAttendance),
     JSON.stringify(buildDefaultLearningAreas()),
@@ -419,13 +415,13 @@ async function seedInitialData(db) {
   `);
 
   const oliverLogs = [
-    ['log-1', 'child-oliver', 'Today, Nov 5, 2026', '10:15 AM', 'Counting Wooden Golden Beads & Decimal Hierarchies', 'Mathematics', 'Oliver worked with the Golden Bead apparatus, systematically exchanging ten unit beads for a ten-bar, and ten ten-bars for a hundred-square.', 'Oliver displayed uninterrupted concentration for 44 continuous minutes. When calculating 2,430 + 1,245, he independently verified his decimal exchanges without asking for adult verification.', 'https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&q=80&w=800', 'Independent Focus', ['Decimal Place Value (1–9,999)', 'Concrete Arithmetic', 'Bilateral Hand Coordination', 'Self-Verification'], 'Montessori Golden Bead Material, Decimal Number Cards, Green Felt Mat', 'Amina Al-Khatib', 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=256'],
-    ['log-2', 'child-oliver', 'Yesterday, Nov 4, 2026', '1:30 PM', 'Sorting Color Tablets (Box III: Chromatic Shades)', 'Sensorial', 'Grading 63 color tablets across seven distinct hues, systematically ordering shades from palest pastel tint to deepest saturated hue.', 'Oliver selected the blue and terracotta tablets today. He held each tablet at arms length under natural window light to discern subtle chromatic gradations.', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=800', 'Independent Focus', ['Visual Discrimination of Hue & Value', 'Orderly Sequencing', 'Aesthetic Sensitivity', 'Pincer Grasp Control'], 'Montessori Color Box III (Lacquered Birch & Silk Threads)', 'Mateo Rossi', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=256'],
-    ['log-3', 'child-oliver', 'Nov 3, 2026', '11:00 AM', 'Planting Heirloom Sweet Pea Seeds & Garden Composting', 'Nature & Ecology', 'Measuring organic potting soil into biodegradable peat pots, carefully planting sweet pea seeds, and recording moisture levels in the garden log.', 'In the greenhouse courtyard, Oliver showed great care handling the delicate seedlings and invited younger peers to smell the damp soil.', 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=800', 'Collaborative Mentorship', ['Ecological Stewardship', 'Measurement & Volume', 'Botanical Life Cycles', 'Empathetic Peer Tutoring'], 'Organic Soil, Peat Pots, Miniature Trowels, Rainwater Pitcher', 'Sora Tanaka', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256'],
-    ['log-4', 'child-oliver', 'Nov 2, 2026', '9:30 AM', 'Letter Recognition & Cursive Sandpaper Tracing', 'Language', 'Tactile tracing of phonograms "sh", "ch", and "th" on emery sandpaper cards while vocalizing phonetic sounds.', 'Oliver moved from tracing to the Large Moveable Alphabet and composed "ship", "chin", and "moth" independently.', 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=800', 'Creative Mastery', ['Phonemic Awareness', 'Muscle Memory for Cursive Script', 'Word Synthesis', 'Auditory-Visual Integration'], 'Cursive Sandpaper Letters, Moveable Alphabet Wooden Box', 'Amina Al-Khatib', 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=256'],
-    ['log-5', 'child-oliver', 'Oct 31, 2026', '2:00 PM', 'Practical Life: Handwashing & Citrus Slicing for Snack', 'Practical Life', 'Setting up the porcelain washstand, washing hands methodically, peeling and slicing organic clementines for morning communal snack.', 'Oliver carried the ceramic basin calmly and offered snack to each classmate before sitting down.', 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=800', 'Independent Focus', ['Grace & Courtesy', 'Fine Motor Dexterity', 'Sequential Order (4-Step Restorations)', 'Community Care'], 'Hand-thrown Porcelain Basin, Organic Citrus, Wavy Slicer, Bamboo Tray', 'Mateo Rossi', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=256'],
-    ['log-6', 'child-oliver', 'Oct 29, 2026', '10:00 AM', 'Continent Wooden Puzzle Map: Africa & Biome Wildlife', 'Social Grace', 'Dismantling and assembling the continent puzzle map of Africa, matching animal miniature replicas to regional biomes.', 'Oliver recognized the Nile River and Madagascar immediately and collaborated peacefully with Leo for 35 minutes.', 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=800', 'Collaborative Mentorship', ['Global Geography', 'Spatial Reasoning', 'Fine Motor Knob Grip', 'Collaborative Problem-Solving'], 'Wooden Africa Continent Map, Wildlife Replicas, Felt Biome Mat', 'Julian Montgomery', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=256'],
-    ['log-lucas-1', 'child-lucas', 'Today, Nov 5, 2026', '9:45 AM', 'Water Pouring & Sponge Transfer Work', 'Practical Life', 'Lucas practiced pouring water between two glass pitchers and wiping small droplets with a linen cloth.', 'Steady two-handed coordination and proud self-restoration of the tray.', 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&q=80&w=800', 'Guided Exploration', ['Pincer Coordination', 'Focus', 'Practical Care'], 'Glass Pitchers, Linen Cloth, Wooden Tray', 'Mateo Rossi', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=256'],
+    ['log-1', 'child-oliver', 'Today, Nov 5, 2026', '10:15 AM', 'Counting Wooden Golden Beads & Decimal Hierarchies', 'Mathematics', 'Oliver worked with the Golden Bead apparatus, systematically exchanging ten unit beads for a ten-bar, and ten ten-bars for a hundred-square.', 'Oliver displayed uninterrupted concentration for 44 continuous minutes. When calculating 2,430 + 1,245, he independently verified his decimal exchanges without asking for adult verification.', 'https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&q=80&w=800', 'Independent Focus', ['Decimal Place Value (1–9,999)', 'Concrete Arithmetic', 'Bilateral Hand Coordination', 'Self-Verification'], 'Montessori Golden Bead Material, Decimal Number Cards, Green Felt Mat', 'Amina Al-Khatib', ''],
+    ['log-2', 'child-oliver', 'Yesterday, Nov 4, 2026', '1:30 PM', 'Sorting Color Tablets (Box III: Chromatic Shades)', 'Sensorial', 'Grading 63 color tablets across seven distinct hues, systematically ordering shades from palest pastel tint to deepest saturated hue.', 'Oliver selected the blue and terracotta tablets today. He held each tablet at arms length under natural window light to discern subtle chromatic gradations.', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=800', 'Independent Focus', ['Visual Discrimination of Hue & Value', 'Orderly Sequencing', 'Aesthetic Sensitivity', 'Pincer Grasp Control'], 'Montessori Color Box III (Lacquered Birch & Silk Threads)', 'Mateo Rossi', ''],
+    ['log-3', 'child-oliver', 'Nov 3, 2026', '11:00 AM', 'Planting Heirloom Sweet Pea Seeds & Garden Composting', 'Nature & Ecology', 'Measuring organic potting soil into biodegradable peat pots, carefully planting sweet pea seeds, and recording moisture levels in the garden log.', 'In the greenhouse courtyard, Oliver showed great care handling the delicate seedlings and invited younger peers to smell the damp soil.', 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=800', 'Collaborative Mentorship', ['Ecological Stewardship', 'Measurement & Volume', 'Botanical Life Cycles', 'Empathetic Peer Tutoring'], 'Organic Soil, Peat Pots, Miniature Trowels, Rainwater Pitcher', 'Sora Tanaka', ''],
+    ['log-4', 'child-oliver', 'Nov 2, 2026', '9:30 AM', 'Letter Recognition & Cursive Sandpaper Tracing', 'Language', 'Tactile tracing of phonograms "sh", "ch", and "th" on emery sandpaper cards while vocalizing phonetic sounds.', 'Oliver moved from tracing to the Large Moveable Alphabet and composed "ship", "chin", and "moth" independently.', 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=800', 'Creative Mastery', ['Phonemic Awareness', 'Muscle Memory for Cursive Script', 'Word Synthesis', 'Auditory-Visual Integration'], 'Cursive Sandpaper Letters, Moveable Alphabet Wooden Box', 'Amina Al-Khatib', ''],
+    ['log-5', 'child-oliver', 'Oct 31, 2026', '2:00 PM', 'Practical Life: Handwashing & Citrus Slicing for Snack', 'Practical Life', 'Setting up the porcelain washstand, washing hands methodically, peeling and slicing organic clementines for morning communal snack.', 'Oliver carried the ceramic basin calmly and offered snack to each classmate before sitting down.', 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=800', 'Independent Focus', ['Grace & Courtesy', 'Fine Motor Dexterity', 'Sequential Order (4-Step Restorations)', 'Community Care'], 'Hand-thrown Porcelain Basin, Organic Citrus, Wavy Slicer, Bamboo Tray', 'Mateo Rossi', ''],
+    ['log-6', 'child-oliver', 'Oct 29, 2026', '10:00 AM', 'Continent Wooden Puzzle Map: Africa & Biome Wildlife', 'Social Grace', 'Dismantling and assembling the continent puzzle map of Africa, matching animal miniature replicas to regional biomes.', 'Oliver recognized the Nile River and Madagascar immediately and collaborated peacefully with Leo for 35 minutes.', 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=800', 'Collaborative Mentorship', ['Global Geography', 'Spatial Reasoning', 'Fine Motor Knob Grip', 'Collaborative Problem-Solving'], 'Wooden Africa Continent Map, Wildlife Replicas, Felt Biome Mat', 'Julian Montgomery', ''],
+    ['log-lucas-1', 'child-lucas', 'Today, Nov 5, 2026', '9:45 AM', 'Water Pouring & Sponge Transfer Work', 'Practical Life', 'Lucas practiced pouring water between two glass pitchers and wiping small droplets with a linen cloth.', 'Steady two-handed coordination and proud self-restoration of the tray.', 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&q=80&w=800', 'Guided Exploration', ['Pincer Coordination', 'Focus', 'Practical Care'], 'Glass Pitchers, Linen Cloth, Wooden Tray', 'Mateo Rossi', ''],
   ];
 
   for (const row of oliverLogs) {
@@ -448,7 +444,7 @@ async function seedInitialData(db) {
   insertReport.run(
     'rep-fall-2026', 'child-oliver', 'Fall Term Comprehensive Developmental Progress Report', 'Fall Term (Sep – Nov 2026)', 'October 30, 2026',
     'Amina Al-Khatib', 'Lead Guide – Primary Community (Casa dei Bambini II)', 'AMS Early Childhood Credential, M.Ed. Montessori Education',
-    'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=256',
+    '',
     'Oliver has demonstrated remarkable cognitive stamina, authentic independence, and compassionate social poise throughout the Fall Term. His concentration periods now regularly exceed 45 minutes.',
     'Exceeding Expectations',
     JSON.stringify([
@@ -485,7 +481,7 @@ async function seedInitialData(db) {
   insertReport.run(
     'rep-spring-2026', 'child-oliver', 'Mid-Year Sensitive Periods & Social Horizon Assessment', 'Spring Term 2026', 'May 15, 2026',
     'Mateo Rossi', 'Co-Lead Guide & Toddler-to-Primary Transition Specialist', 'AMI Certified (0–3 & 3–6), RIE Certified Educator',
-    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=256',
+    '',
     'Oliver completed a seamless transition from the Toddler Community into the full 3–6 Casa environment, displaying eagerness to explore concrete mathematical apparatus.',
     'Strong Consistent Growth',
     JSON.stringify([
@@ -517,7 +513,7 @@ async function seedInitialData(db) {
   insertReport.run(
     'rep-lucas-fall-2026', 'child-lucas', 'Toddler Community Autumn Adaptation Evaluation', 'Fall Term 2026', 'November 1, 2026',
     'Mateo Rossi', 'Lead Guide – Toddler Community', 'AMI Assistants to Infancy (0–3)',
-    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=256',
+    '',
     'Lucas has settled warmly into the Toddler Community, showing steady motor coordination and expressive spoken language growth.',
     'Strong Consistent Growth',
     JSON.stringify(['Independent handwashing', 'Peaceful turn-taking during circle time']),
@@ -623,7 +619,7 @@ async function seedInitialData(db) {
     INSERT INTO cms_content (key, section, title, subtitle, body, updated_at)
     VALUES (?, ?, ?, ?, ?, ?)
   `);
-  insertCms.run('hero-home-1', 'Homepage Hero 1', 'Growing Curious Minds. Embracing Independent Learning.', 'Authentic Montessori Pod • Ages 18m – 9y', 'Discover a nurturing Montessori-inspired learning environment where children explore, create, develop independence, and learn at their own pace.', now);
+  insertCms.run('hero-home-1', 'Homepage Hero 1', 'Growing Curious Minds. Embracing Independent Learning.', 'Authentic Montessori Pod • Ages 18m – 9y', 'Discover Montessori Pod, a nurturing learning environment where children explore, create, develop independence, and learn at their own pace.', now);
   insertCms.run('admissions-notice', 'Admissions Banner', '2026–2027 Enrollment Cycle Open', 'Limited Cohort Spaces Available', 'Morning observation tours are offered Tuesday through Friday from 9:15 AM to 10:30 AM.', now);
   insertCms.run('campus-address', 'Contact & Campus', '742 Evergreen Botanical Way, Boulder, CO 80302', 'Boulder Foothills Campus', 'Free parent visitor parking available at North Cedar Gateway.', now);
 
@@ -632,7 +628,7 @@ async function seedInitialData(db) {
     INSERT INTO system_settings (key, value, updated_at)
     VALUES (?, ?, ?)
   `);
-  insertSetting.run('school_name', 'Montessori Learning Pod', now);
+  insertSetting.run('school_name', 'Montessori Pod', now);
   insertSetting.run('academic_year', '2026–2027', now);
   insertSetting.run('observation_hours', 'Mon–Fri, 9:00 AM – 11:00 AM', now);
   insertSetting.run('allow_parent_registration', 'true', now);

@@ -13,7 +13,6 @@ import {
   Send,
   Eye,
   Clock,
-  User,
   Layers
 } from 'lucide-react';
 
@@ -244,16 +243,9 @@ export const DailyLogsPage: React.FC = () => {
 
                 {/* Footer with Guide name & Detail trigger */}
                 <div className="pt-3 border-t border-beige-200 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <img
-                      src={log.guideAvatar}
-                      alt={log.guideName}
-                      className="w-6 h-6 rounded-full object-cover object-top bg-beige-100 border border-forest-400"
-                    />
-                    <span className="text-[11px] text-forest-700 font-semibold truncate max-w-[110px]">
-                      {log.guideName}
-                    </span>
-                  </div>
+                  <span className="text-[11px] text-forest-700 font-semibold truncate max-w-[140px]">
+                    Guide: {log.guideName}
+                  </span>
 
                   <button
                     onClick={() => setActiveLogModal(log)}
@@ -322,12 +314,7 @@ export const DailyLogsPage: React.FC = () => {
 
               {/* Teacher Observation */}
               <div className="p-4 rounded-3xl bg-white border border-beige-300 shadow-soft">
-                <div className="flex items-center gap-2 mb-2">
-                  <img
-                    src={activeLogModal.guideAvatar}
-                    alt={activeLogModal.guideName}
-                    className="w-6 h-6 rounded-full object-cover object-top bg-beige-100"
-                  />
+                <div className="mb-2">
                   <span className="text-xs font-bold text-forest-900">
                     Guide Observation ({activeLogModal.guideName})
                   </span>

@@ -473,7 +473,7 @@ export const TuitionPage: React.FC = () => {
               <h3 className="font-serif text-xl font-bold text-forest-900">
                 Official Tuition Receipt
               </h3>
-              <p className="text-xs text-forest-600">Montessori Learning Pod</p>
+              <p className="text-xs text-forest-600">Montessori Pod</p>
               <p className="font-mono text-xs text-terracotta mt-1">{activeReceipt.receiptNumber}</p>
             </div>
 

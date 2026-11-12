@@ -2,18 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import {
   BookOpen,
-  Calendar,
   Check,
   ChevronDown,
   House,
   Layers,
-  LayoutDashboard,
-  LogOut,
   Menu,
   PhoneCall,
   Shield,
   Sprout,
   User,
+  UserCheck,
   Users,
   X,
 } from 'lucide-react';
@@ -22,7 +20,6 @@ import { DirectionToggle } from './DirectionToggle';
 import { ThemeToggle } from './ThemeToggle';
 
 type OpenDropdown = 'home' | 'dashboard' | null;
-type MobileSubmenu = 'home' | 'dashboard' | null;
 
 /**
  * Clean outline house icon with a split layout grid for Home 2.
@@ -67,13 +64,14 @@ export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<OpenDropdown>(null);
-  const [mobileSubmenu, setMobileSubmenu] = useState<MobileSubmenu>(null);
+  const [mobileHomeOpen, setMobileHomeOpen] = useState(true);
+  const [mobileDashboardOpen, setMobileDashboardOpen] = useState(true);
 
   const navBarRef = useRef<HTMLDivElement>(null);
   const homeMenuRef = useRef<HTMLDivElement>(null);
   const dashboardMenuRef = useRef<HTMLDivElement>(null);
 
-  const { homeLayout, setHomeLayout, openTourModal, user, logout } = useSettings();
+  const { homeLayout, setHomeLayout } = useSettings();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -95,21 +93,20 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     setMobileMenuOpen(false);
     setOpenDropdown(null);
-    setMobileSubmenu(null);
   }, [location.pathname, location.search]);
 
-  // Close dropdowns when clicking outside or pressing Escape
+  // Close dropdowns and mobile drawer when clicking outside or pressing Escape
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
       if (navBarRef.current && !navBarRef.current.contains(event.target as Node)) {
         setOpenDropdown(null);
+        setMobileMenuOpen(false);
       }
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpenDropdown(null);
-        setMobileSubmenu(null);
         setMobileMenuOpen(false);
       }
     };
@@ -134,7 +131,6 @@ export const Navbar: React.FC = () => {
   const handleSelectHomeOption = (layout: HomeLayoutType, closeMobileDrawer = false) => {
     setHomeLayout(layout);
     setOpenDropdown(null);
-    setMobileSubmenu(null);
 
     if (location.pathname !== '/') {
       navigate('/');
@@ -149,7 +145,6 @@ export const Navbar: React.FC = () => {
 
   const handleSelectDashboardOption = (target: string, closeMobileDrawer = false) => {
     setOpenDropdown(null);
-    setMobileSubmenu(null);
     navigate(target);
 
     if (closeMobileDrawer) {
@@ -181,24 +176,28 @@ export const Navbar: React.FC = () => {
       ref={navBarRef}
       className={`sticky top-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? 'bg-cream/95 dark:bg-forest-950/95 backdrop-blur-md shadow-soft py-2.5 border-b border-beige-300/80 dark:border-forest-800'
-          : 'bg-cream/90 dark:bg-forest-950/90 backdrop-blur-sm py-3 border-b border-beige-200/70 dark:border-forest-800/70'
+          ? 'bg-cream/95 dark:bg-forest-950/95 backdrop-blur-md shadow-soft border-b border-beige-300/80 dark:border-forest-800'
+          : 'bg-cream/90 dark:bg-forest-950/90 backdrop-blur-sm border-b border-beige-200/70 dark:border-forest-800/70'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-6 xl:px-8">
-        <div className="flex items-center justify-between gap-1.5 sm:gap-2 xl:gap-4">
-          {/* Left: Logo & Montessori Learning Pod Brand */}
+      <div
+        className={`max-w-7xl mx-auto px-3 sm:px-6 lg:px-6 xl:px-8 transition-all duration-300 ${
+          isScrolled ? 'py-2.5' : 'py-3'
+        }`}
+      >
+        <div className="flex items-center justify-between gap-2 xl:gap-4">
+          {/* Left: Logo & Montessori Pod Brand */}
           <Link
             to="/"
             className="flex items-center gap-1.5 sm:gap-2 xl:gap-2.5 group focus:outline-none focus:ring-2 focus:ring-forest-400 rounded-xl py-0.5 pr-0.5 flex-shrink min-w-0"
-            aria-label="Montessori Learning Pod Homepage"
+            aria-label="Montessori Pod Homepage"
           >
-            <div className="w-7 h-7 sm:w-8 sm:h-8 xl:w-9 xl:h-9 rounded-xl bg-forest-700 dark:bg-sage-600 text-cream flex items-center justify-center shadow-soft group-hover:scale-105 group-hover:bg-forest-800 dark:group-hover:bg-sage-500 transition-all duration-300 flex-shrink-0">
+            <div className="w-8 h-8 xl:w-9 xl:h-9 rounded-xl bg-forest-700 dark:bg-sage-600 text-cream flex items-center justify-center shadow-soft group-hover:scale-105 group-hover:bg-forest-800 dark:group-hover:bg-sage-500 transition-all duration-300 flex-shrink-0">
               <Sprout className="w-4 h-4 xl:w-5 xl:h-5 text-cream" />
             </div>
             <div className="text-left rtl:text-right min-w-0">
-              <span className="font-serif text-[12.5px] sm:text-base lg:text-[15px] xl:text-lg font-bold tracking-tight text-forest-900 dark:text-cream group-hover:text-forest-700 dark:group-hover:text-sage-200 transition-colors block leading-tight whitespace-nowrap truncate">
-                Montessori Learning Pod
+              <span className="font-serif text-[14px] sm:text-base lg:text-[15px] xl:text-[18px] font-bold tracking-tight text-forest-900 dark:text-cream group-hover:text-forest-700 dark:group-hover:text-sage-200 transition-colors block leading-[1.15] whitespace-nowrap truncate">
+                Montessori Pod
               </span>
               <span className="hidden xl:block text-[10px] font-medium text-forest-600 dark:text-sage-300 tracking-wider uppercase leading-tight">
                 Curiosity • Autonomy • Grace
@@ -379,64 +378,31 @@ export const Navbar: React.FC = () => {
             </div>
           </nav>
 
-          {/* Right: Swap Icon | Theme Toggle | Schedule a Tour | Login */}
+          {/* Right: Desktop Utility & Permanent Login + Mobile Hamburger (< lg) */}
           <div className="flex items-center gap-1.5 xl:gap-2 flex-shrink-0">
-            <DirectionToggle />
-            <ThemeToggle compact />
+            <div className="hidden lg:flex items-center gap-1.5 xl:gap-2">
+              <DirectionToggle />
+              <ThemeToggle compact />
 
-            <button
-              onClick={openTourModal}
-              type="button"
-              className={`hidden lg:inline-flex ${NAV_BTN_BASE} border-forest-700 dark:border-sage-500 bg-forest-700 hover:bg-forest-800 dark:bg-sage-500 dark:hover:bg-sage-400 text-cream dark:text-forest-950 shadow-soft hover:shadow-soft-lg`}
-            >
-              <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
-              <span>Schedule a Tour</span>
-            </button>
-
-            {user ? (
-              <div className="flex items-center gap-1.5 xl:gap-2">
-                <Link
-                  to={user.role === 'admin' ? '/admin' : '/dashboard'}
-                  className={`${NAV_BTN_BASE} border-forest-700/80 dark:border-sage-400/80 bg-cream/95 dark:bg-forest-900 text-forest-900 dark:text-cream hover:bg-forest-700 hover:text-cream dark:hover:bg-sage-400 dark:hover:text-forest-950`}
-                >
-                  {user.role === 'admin' ? (
-                    <Shield className="w-3.5 h-3.5 flex-shrink-0" />
-                  ) : (
-                    <User className="w-3.5 h-3.5 flex-shrink-0" />
-                  )}
-                  <span className="hidden sm:inline">
-                    {user.role === 'admin' ? 'Admin' : 'Portal'}
-                  </span>
-                </Link>
-                <button
-                  type="button"
-                  onClick={async () => {
-                    await logout();
-                    navigate('/');
-                  }}
-                  title="Sign Out"
-                  className={`hidden sm:inline-flex ${NAV_BTN_BASE} border-beige-400 dark:border-forest-600 text-forest-800 dark:text-beige-100 hover:bg-terracotta/15 hover:border-terracotta/50 hover:text-terracotta`}
-                >
-                  <LogOut className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span className="sr-only xl:not-sr-only">Logout</span>
-                </button>
-              </div>
-            ) : (
               <Link
                 to="/login"
                 className={`${NAV_BTN_BASE} border-forest-700 dark:border-sage-400 bg-white/90 dark:bg-forest-900/90 text-forest-900 dark:text-cream hover:bg-forest-700 hover:text-cream dark:hover:bg-sage-400 dark:hover:text-forest-950 shadow-sm`}
               >
                 <span>Login</span>
               </Link>
-            )}
+            </div>
 
-            {/* Mobile/Tablet Hamburger */}
+            {/* Mobile/Tablet Hamburger (top-right on < lg) */}
             <button
               type="button"
-              onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="lg:hidden inline-flex items-center justify-center w-9 h-9 rounded-full text-forest-800 dark:text-cream hover:text-forest-950 hover:bg-beige-200/80 dark:hover:bg-forest-800 transition-colors focus:outline-none focus:ring-2 focus:ring-forest-400 flex-shrink-0"
-              aria-label="Toggle navigation menu"
+              onClick={() => {
+                setOpenDropdown(null);
+                setMobileMenuOpen((prev) => !prev);
+              }}
+              className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white dark:bg-forest-900 text-[#222723] dark:text-cream hover:bg-[#FFF8F2] dark:hover:bg-forest-800 border border-[#DFD6C8] dark:border-forest-700 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#E8853D]/50 flex-shrink-0"
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav-drawer"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -444,69 +410,66 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Responsive Mobile / Tablet Dropdown Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-cream/98 dark:bg-forest-950/98 backdrop-blur-md border-t border-beige-200 dark:border-forest-800 shadow-soft-xl animate-fadeIn px-4 pt-3 pb-6 max-h-[calc(100vh-4rem)] overflow-y-auto">
-          <nav aria-label="Mobile Navigation" className="flex flex-col space-y-1.5 max-w-7xl mx-auto">
-            {/* Mobile Home Dropdown */}
-            <div>
+      {/* Responsive Mobile / Tablet Navigation Menu (< lg) matching Reference Design */}
+      <div
+        id="mobile-nav-drawer"
+        aria-hidden={!mobileMenuOpen}
+        className={`lg:hidden overflow-hidden transition-all duration-300 ease-out ${
+          mobileMenuOpen
+            ? 'max-h-[calc(100dvh-4.5rem)] opacity-100 translate-y-0 visible'
+            : 'max-h-0 opacity-0 -translate-y-2 invisible pointer-events-none'
+        }`}
+      >
+        <div className="bg-[#FAF6F0]/98 dark:bg-forest-950/98 backdrop-blur-md border-t border-[#EAE2D7] dark:border-forest-800 px-4 pt-3.5 pb-4 max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain">
+          <nav aria-label="Mobile Navigation" className="flex flex-col space-y-2.5 max-w-7xl mx-auto">
+            {/* 1. Expandable Home Accordion Card */}
+            <div className="rounded-2xl bg-white dark:bg-forest-900 border border-[#EAE2D7] dark:border-forest-700 shadow-sm overflow-hidden">
               <button
                 type="button"
-                onClick={() => setMobileSubmenu((prev) => (prev === 'home' ? null : 'home'))}
-                aria-expanded={mobileSubmenu === 'home'}
-                aria-haspopup="menu"
-                className={`w-full flex items-center justify-between px-4 py-2.5 rounded-full text-sm transition-colors border ${
-                  isHomeActive || mobileSubmenu === 'home'
-                    ? 'bg-beige-200/85 dark:bg-forest-800 border-forest-700/75 dark:border-sage-400/75 text-forest-900 dark:text-cream font-semibold'
-                    : 'bg-beige-100/85 dark:bg-forest-900 border-forest-700/55 dark:border-sage-400/55 text-forest-800 dark:text-cream font-medium hover:bg-beige-200/70 dark:hover:bg-forest-800'
-                }`}
+                tabIndex={mobileMenuOpen ? 0 : -1}
+                onClick={() => setMobileHomeOpen((prev) => !prev)}
+                aria-expanded={mobileHomeOpen}
+                aria-controls="mobile-home-accordion"
+                className="w-full min-h-[46px] flex items-center justify-between px-4 py-3 text-[15px] font-semibold text-[#1F2421] dark:text-cream hover:bg-[#FFF9F4] dark:hover:bg-forest-800/70 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#E8853D]/50"
               >
-                <span className="flex items-center gap-3">
-                  <House className="w-4 h-4 text-forest-700 dark:text-sage-300" />
-                  <span>Home</span>
-                </span>
+                <span>Home</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-forest-700 dark:text-sage-300 transition-transform duration-200 ${
-                    mobileSubmenu === 'home' ? 'rotate-180' : ''
+                  className={`w-4 h-4 text-[#4A504B] dark:text-sage-300 transition-transform duration-200 ${
+                    mobileHomeOpen ? 'rotate-180' : ''
                   }`}
                 />
               </button>
 
               <div
+                id="mobile-home-accordion"
                 role="menu"
                 aria-label="Mobile Home Options"
-                aria-hidden={mobileSubmenu !== 'home'}
+                aria-hidden={!mobileMenuOpen || !mobileHomeOpen}
                 className={`overflow-hidden transition-all duration-200 ease-out ${
-                  mobileSubmenu === 'home'
-                    ? 'max-h-36 opacity-100 mt-1.5'
+                  mobileHomeOpen
+                    ? 'max-h-36 opacity-100'
                     : 'max-h-0 opacity-0 pointer-events-none'
                 }`}
               >
-                <div className="rounded-2xl bg-white dark:bg-forest-900 border border-beige-300/90 dark:border-forest-700 shadow-soft p-1.5 space-y-1">
+                <div className="px-3 pb-3 pt-0.5 space-y-1">
                   {HOME_OPTIONS.map((option) => {
-                    const Icon = option.icon;
-                    const isActive = homeLayout === option.id;
+                    const isActive = homeLayout === option.id && isHomeActive;
+                    const isSelectedLayout = homeLayout === option.id;
                     return (
                       <button
                         key={option.id}
                         type="button"
                         role="menuitemradio"
-                        aria-checked={isActive}
-                        tabIndex={mobileSubmenu === 'home' ? 0 : -1}
+                        aria-checked={isSelectedLayout}
+                        tabIndex={mobileMenuOpen && mobileHomeOpen ? 0 : -1}
                         onClick={() => handleSelectHomeOption(option.id, true)}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all duration-150 ${
-                          isActive
-                            ? 'bg-sage-100/95 dark:bg-forest-800 text-forest-900 dark:text-cream font-semibold border border-sage-300/80 dark:border-forest-600'
-                            : 'text-forest-700 dark:text-beige-200 hover:bg-beige-100 dark:hover:bg-forest-800/70 border border-transparent font-medium'
+                        className={`w-full min-h-[40px] flex items-center justify-between px-3 py-2 rounded-xl text-[13px] transition-colors text-left rtl:text-right ${
+                          isActive || isSelectedLayout
+                            ? 'text-[#E8853D] font-semibold bg-[#FFF8F2] dark:bg-forest-800/80'
+                            : 'text-[#3A403C] dark:text-beige-200 font-medium hover:text-[#E8853D] hover:bg-[#FAF6F0] dark:hover:bg-forest-800/50'
                         }`}
                       >
-                        <span className="flex items-center gap-2.5">
-                          <Icon className="w-4 h-4 text-forest-600 dark:text-sage-300 flex-shrink-0" />
-                          <span>{option.label}</span>
-                        </span>
-                        {isActive && (
-                          <Check className="w-3.5 h-3.5 text-forest-700 dark:text-sage-300 flex-shrink-0" />
-                        )}
+                        <span>{option.label}</span>
                       </button>
                     );
                   })}
@@ -514,86 +477,81 @@ export const Navbar: React.FC = () => {
               </div>
             </div>
 
-            {/* Mobile Standard Nav Links */}
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-beige-200 dark:bg-forest-800 text-forest-900 dark:text-cream font-semibold'
-                      : 'text-forest-700 dark:text-beige-200 hover:bg-beige-100 dark:hover:bg-forest-900 hover:text-forest-900 dark:hover:text-white'
-                  }`
-                }
-              >
-                <link.icon className="w-4 h-4 text-forest-600 dark:text-sage-300" />
-                <span>{link.name}</span>
-              </NavLink>
-            ))}
+            {/* 2. Vertical Navigation Links */}
+            <div className="flex flex-col space-y-0.5 py-0.5">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.path}
+                  to={link.path}
+                  tabIndex={mobileMenuOpen ? 0 : -1}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `min-h-[44px] flex items-center px-4 py-2.5 rounded-xl text-[15px] transition-colors ${
+                      isActive
+                        ? 'text-[#E8853D] font-semibold bg-[#FFF8F2] dark:bg-forest-800/80'
+                        : 'text-[#222723] dark:text-cream font-medium hover:text-[#E8853D] hover:bg-white/70 dark:hover:bg-forest-900'
+                    }`
+                  }
+                >
+                  <span>{link.name}</span>
+                </NavLink>
+              ))}
+            </div>
 
-            {/* Mobile Dashboard Dropdown */}
-            <div>
+            {/* 3. Expandable Dashboard Accordion Card */}
+            <div className="rounded-2xl bg-white dark:bg-forest-900 border border-[#EAE2D7] dark:border-forest-700 shadow-sm overflow-hidden">
               <button
                 type="button"
-                onClick={() =>
-                  setMobileSubmenu((prev) => (prev === 'dashboard' ? null : 'dashboard'))
-                }
-                aria-expanded={mobileSubmenu === 'dashboard'}
-                aria-haspopup="menu"
-                className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                  isDashboardActive || mobileSubmenu === 'dashboard'
-                    ? 'bg-beige-200 dark:bg-forest-800 text-forest-900 dark:text-cream font-semibold'
-                    : 'text-forest-700 dark:text-beige-200 hover:bg-beige-100 dark:hover:bg-forest-900 hover:text-forest-900 dark:hover:text-white'
+                tabIndex={mobileMenuOpen ? 0 : -1}
+                onClick={() => setMobileDashboardOpen((prev) => !prev)}
+                aria-expanded={mobileDashboardOpen}
+                aria-controls="mobile-dashboard-accordion"
+                className={`w-full min-h-[46px] flex items-center justify-between px-4 py-3 text-[15px] font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#E8853D]/50 ${
+                  mobileDashboardOpen
+                    ? 'bg-[#FDF0E6] dark:bg-forest-800 text-[#1F2421] dark:text-cream'
+                    : 'bg-white dark:bg-forest-900 text-[#1F2421] dark:text-cream hover:bg-[#FFF8F2] dark:hover:bg-forest-800/70'
                 }`}
               >
-                <span className="flex items-center gap-3">
-                  <LayoutDashboard className="w-4 h-4 text-forest-600 dark:text-sage-300" />
-                  <span>Dashboard</span>
-                </span>
+                <span>Dashboard</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-forest-600 dark:text-sage-300 transition-transform duration-200 ${
-                    mobileSubmenu === 'dashboard' ? 'rotate-180' : ''
+                  className={`w-4 h-4 text-[#4A504B] dark:text-sage-300 transition-transform duration-200 ${
+                    mobileDashboardOpen ? 'rotate-180' : ''
                   }`}
                 />
               </button>
 
               <div
+                id="mobile-dashboard-accordion"
                 role="menu"
                 aria-label="Mobile Dashboard Options"
-                aria-hidden={mobileSubmenu !== 'dashboard'}
+                aria-hidden={!mobileMenuOpen || !mobileDashboardOpen}
                 className={`overflow-hidden transition-all duration-200 ease-out ${
-                  mobileSubmenu === 'dashboard'
-                    ? 'max-h-36 opacity-100 mt-1.5'
+                  mobileDashboardOpen
+                    ? 'max-h-36 opacity-100'
                     : 'max-h-0 opacity-0 pointer-events-none'
                 }`}
               >
-                <div className="rounded-2xl bg-white dark:bg-forest-900 border border-beige-300/90 dark:border-forest-700 shadow-soft p-1.5 space-y-1">
-                  {DASHBOARD_OPTIONS.map((option) => {
-                    const Icon = option.icon;
-                    const isActive =
-                      option.id === 'admin' ? isAdminDashboardActive : isUserDashboardActive;
+                <div className="px-3 py-2 space-y-1 bg-white dark:bg-forest-900">
+                  {[
+                    { id: 'admin', label: 'Admin Dashboard', to: '/admin', icon: Shield, active: isAdminDashboardActive },
+                    { id: 'user', label: 'User Dashboard', to: '/dashboard', icon: UserCheck, active: isUserDashboardActive },
+                  ].map((item) => {
+                    const Icon = item.icon;
                     return (
                       <button
-                        key={option.id}
+                        key={item.id}
                         type="button"
                         role="menuitem"
-                        tabIndex={mobileSubmenu === 'dashboard' ? 0 : -1}
-                        onClick={() => handleSelectDashboardOption(option.to, true)}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all duration-150 ${
-                          isActive
-                            ? 'bg-sage-100/95 dark:bg-forest-800 text-forest-900 dark:text-cream font-semibold border border-sage-300/80 dark:border-forest-600'
-                            : 'text-forest-700 dark:text-beige-200 hover:bg-beige-100 dark:hover:bg-forest-800/70 border border-transparent font-medium'
+                        tabIndex={mobileMenuOpen && mobileDashboardOpen ? 0 : -1}
+                        onClick={() => handleSelectDashboardOption(item.to, true)}
+                        className={`w-full min-h-[42px] flex items-center gap-3 px-3 py-2 rounded-xl text-[13.5px] transition-colors text-left rtl:text-right ${
+                          item.active
+                            ? 'bg-[#FFF8F2] dark:bg-forest-800 text-[#E8853D] font-semibold'
+                            : 'text-[#3A403C] dark:text-beige-200 font-medium hover:bg-[#FAF6F0] dark:hover:bg-forest-800/60 hover:text-[#E8853D]'
                         }`}
                       >
-                        <span className="flex items-center gap-2.5">
-                          <Icon className="w-4 h-4 text-forest-600 dark:text-sage-300 flex-shrink-0" />
-                          <span>{option.label}</span>
-                        </span>
-                        {isActive && (
-                          <Check className="w-3.5 h-3.5 text-forest-700 dark:text-sage-300 flex-shrink-0" />
-                        )}
+                        <Icon className="w-4 h-4 text-[#E8853D] flex-shrink-0" />
+                        <span>{item.label}</span>
                       </button>
                     );
                   })}
@@ -601,56 +559,26 @@ export const Navbar: React.FC = () => {
               </div>
             </div>
 
-            {/* Mobile Schedule a Tour & Login CTA */}
-            <div className="pt-3 mt-2 border-t border-beige-200 dark:border-forest-800 space-y-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  openTourModal();
-                }}
-                className="w-full py-2.5 rounded-full bg-forest-700 hover:bg-forest-800 dark:bg-sage-500 dark:hover:bg-sage-400 text-cream dark:text-forest-950 font-semibold text-sm shadow-soft transition-all flex items-center justify-center gap-2"
-              >
-                <Calendar className="w-4 h-4" />
-                <span>Schedule a Tour</span>
-              </button>
+            {/* 4. Action Buttons Below Dashboard Accordion */}
+            <div className="pt-2 space-y-2.5 border-t border-[#EAE2D7] dark:border-forest-800">
+              <div className="grid grid-cols-2 gap-3">
+                <DirectionToggle variant="orange-card" tabIndex={mobileMenuOpen ? 0 : -1} />
+                <ThemeToggle variant="orange-card" tabIndex={mobileMenuOpen ? 0 : -1} />
+              </div>
 
-              {user ? (
-                <div className="grid grid-cols-2 gap-2">
-                  <Link
-                    to={user.role === 'admin' ? '/admin' : '/dashboard'}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 rounded-xl border-2 border-forest-700 dark:border-sage-400 text-forest-900 dark:text-cream font-semibold text-sm flex items-center justify-center gap-1.5"
-                  >
-                    {user.role === 'admin' ? <Shield className="w-4 h-4" /> : <User className="w-4 h-4" />}
-                    <span>{user.role === 'admin' ? 'Admin' : 'My Portal'}</span>
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={async () => {
-                      setMobileMenuOpen(false);
-                      await logout();
-                      navigate('/');
-                    }}
-                    className="py-2.5 rounded-xl border border-beige-400 dark:border-forest-600 text-terracotta font-semibold text-sm flex items-center justify-center gap-1.5"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span>Sign Out</span>
-                  </button>
-                </div>
-              ) : (
-                <Link
-                  to="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full h-10 rounded-full border border-forest-700 dark:border-sage-400 bg-white dark:bg-forest-900 text-forest-900 dark:text-cream font-semibold text-sm flex items-center justify-center"
-                >
-                  <span>Login</span>
-                </Link>
-              )}
+              <Link
+                to="/login"
+                tabIndex={mobileMenuOpen ? 0 : -1}
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full h-[50px] min-h-[48px] rounded-full bg-[#1D2B20] hover:bg-[#273829] active:bg-[#141E15] text-white font-semibold text-[15px] flex items-center justify-center gap-2 shadow-soft transition-colors focus:outline-none focus:ring-2 focus:ring-[#1D2B20]/50 dark:focus:ring-sage-400"
+              >
+                <User className="w-4 h-4 text-white flex-shrink-0" />
+                <span>Login</span>
+              </Link>
             </div>
           </nav>
         </div>
-      )}
+      </div>
     </header>
   );
 };
